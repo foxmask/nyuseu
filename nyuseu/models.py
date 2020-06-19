@@ -36,6 +36,23 @@ class Feeds(models.Model):
         return self.title
 
 
+class ArticlesQS(models.QuerySet):
+
+    def unreads(self):
+        return self.filter(read=False)
+
+
+class ArticlesUnreadManager(models.Manager):
+    """
+    get the unread articles
+    """
+    def get_queryset(self):
+        return ArticlesQS(self.model, using=self._db)  # Important!
+
+    def unreads(self):
+        return self.get_queryset().unreads()
+
+
 class Articles(models.Model):
 
     feeds = models.ForeignKey(Feeds, on_delete=models.CASCADE)
@@ -44,6 +61,8 @@ class Articles(models.Model):
     text = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+    unreads = ArticlesUnreadManager()
 
     class Meta:
         verbose_name_plural = "Articles"

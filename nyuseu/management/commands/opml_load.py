@@ -1,9 +1,11 @@
 from django.core.management.base import BaseCommand
 import opml
-
+from rich import Console
 from nyuseu.models import Feeds, Folders
 
 __author__ = 'FoxMaSk'
+
+console = Console()
 
 
 def load(opml_resource):
@@ -14,25 +16,26 @@ def load(opml_resource):
         o_resource = opml.parse(opml_resource)
         for folder in o_resource:
             for feed in folder:
-                print(folder.text, feed.text)
+                log = f"{folder.text}, {feed.text}"
+                console.print(log, style="blue")
                 # create the target folder if not exists
                 try:
                     f = Folders.objects.get(title=folder.text)
                 except Folders.DoesNotExist:
                     f = Folders.objects.create(title=folder.text)
 
-                # create the target SourceFeeds source if not exists
+                # create the Feeds source if not exists
                 try:
                     res = Feeds.objects.get(title=feed.text)
                 except Feeds.DoesNotExist:
                     res = Feeds.objects.create(title=feed.text, url=feed.xmlUrl, folder=f)
-        print('Nyuseu - 뉴스 - Feeds Loaded')
+        console.print('Nyuseu - 뉴스 - Feeds Loaded', style="green")
     else:
-        print(f"File {opml_resource} is not an OPML file")
+        console.print(f"File {opml_resource} is not an OPML file", style="bold red")
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'Import OMPL file'
 
     def add_arguments(self, parser):
         parser.add_argument("opml_file", help="provide the path to the OPML file", type=str)

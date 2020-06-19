@@ -15,12 +15,15 @@ import logging
 
 from nyuseu.models import Feeds, Articles
 from nyuseu.rss import Rss
+from rich import Console
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 __author__ = 'FoxMaSk'
 __all__ = ['go']
+
+console = Console()
 
 
 def get_published(entry) -> datetime:
@@ -83,8 +86,6 @@ def from_feed(entry):
     """
 
     """
-    from pprint import pprint
-    pprint(entry)
     new_image = "<img src=\"{src}\" title=\"{title}\" class=\"card-img-top\" />"
     for link in entry.get('links'):
         if link['type'] in ('image/jpeg', 'image/png', 'image/jpg', 'image/gif') and link['rel'] == 'enclosure':
@@ -127,7 +128,7 @@ def go():
     """
 
     """
-    print('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - in progress')
+    console.print('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - in progress', style="green")
     feeds = Feeds.objects.all()
     for my_feeds in feeds:
         rss = Rss()
@@ -153,12 +154,12 @@ def go():
                     source_feeds = Feeds.objects.get(id=my_feeds.id)
                     source_feeds.date_grabbed = now
                     source_feeds.save()
-                    logger.info(f'Feeds {my_feeds.title} : {entry.title}')
+                    console.print(f'Feeds {my_feeds.title} : {entry.title}', style="blue")
 
         if read_entries:
-            logger.info(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}')
+            console.print(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}', style="blue")
         else:
-            logger.info(f'{my_feeds.title}: no feeds read')
+            console.print(f'{my_feeds.title}: no feeds read', style="blue")
 
-    logger.info('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - Finished!')
+    console.print('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - Finished!', style="green")
 

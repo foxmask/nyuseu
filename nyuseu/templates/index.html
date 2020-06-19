@@ -12,14 +12,14 @@
                     data-target="#collapse{{ line.id }}"
                     aria-expanded="true"
                     aria-controls="collapse{{ line.id }}">
-                {{ line.title }}
+                {{ line.title }} {% if line.unread > 0 %}<span class="badge badge-secondary">{{ line.unread }}</span>{% endif %}
             </button>
           </h2>
         </div>
         {% for feed in line.feeds_set.all %}
         <div id="collapse{{ line.id }}" class="collapse" aria-labelledby="heading{{ line.id }}" data-parent="#accordionFolder">
           <div class="card-body">
-            <a href="{% url 'articles' feed.id %}">{{ feed.title }}</a>
+            <a href="{% url 'articles' feed.id %}">{{ feed.title }}</a> {% if feed.articles_set.unreads.count > 0 %}<span class="badge badge-secondary">{{ feed.articles_set.unreads.count }}</span>{% endif %}
           </div>
         </div>
         {% endfor %}
@@ -28,6 +28,7 @@
     {% endfor %}
 </div>
 <div class="col-xs-10 col-md-10 col-lg-10">
+    {% if feeds_title %}<h1>{{ feeds_title }}</h1>{% endif %}
     <div class="row row-cols-1 row-cols-md-3">
     {% for article in object_list %}
         <div class="col mb-4 card-deck">
@@ -35,16 +36,44 @@
                 {{ article.image |safe }}
                 <div class="card-body">
                     <h5 class="card-title">{{ article.title }}</h5>
-                    <h6 class="card-subtitle">{{ article.date_created }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}</h6>
                     <p class="card-text">{{ article.text | truncatechars_html:800 | safe}}</p>
                 </div>
                 <div class="card-footer">
-                  <small class="text-muted">Read later</small> - <small class="text-muted">Share</small>
-                    - <small class="text-muted">Open</small>
+                    <a href="#" class="text-muted card-link">Read later</a>
+                    <a href="#" class="text-muted card-link">Share</a>
+                    <a href="#" class="text-muted card-link">Open</a>
                 </div>
             </div>
         </div>
     {% endfor %}
     </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1">&laquo; first</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a>
+          </li>
+        {% endif %}
+          <li class="page-item active" aria-current="page">
+          <span class="page-link">
+            {{ page_obj.number }}
+            <span class="sr-only">(current)</span>
+          </span>
+          </li>
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last ({{ page_obj.paginator.num_pages }}) &raquo;</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+
 </div>
 {% endblock %}

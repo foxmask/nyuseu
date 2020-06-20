@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import opml
-from rich import Console
+from rich.console import Console
 from nyuseu.models import Feeds, Folders
 
 __author__ = 'FoxMaSk'

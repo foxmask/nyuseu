@@ -15,7 +15,7 @@ import logging
 
 from nyuseu.models import Feeds, Articles
 from nyuseu.rss import Rss
-from rich import Console
+from rich.console import Console
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -132,12 +132,17 @@ def go():
     feeds = Feeds.objects.all()
     for my_feeds in feeds:
         rss = Rss()
+        console.print(f"Feeds {my_feeds.url}", style="magenta")
         feeds = rss.get_data(**{'url_to_parse': my_feeds.url, 'bypass_bozo': settings.BYPASS_BOZO})
         now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
         date_grabbed = arrow.get(my_feeds.date_grabbed).format('YYYY-MM-DDTHH:mm:ssZZ')
         read_entries = 0
         created_entries = 0
         for entry in feeds.entries:
+            # it may happened that feeds does not provide title ... yes !
+            if 'title' not in entry:
+                entry['title'] = entry.link
+            console.print(f"Reading {entry.title}", style="yellow")
             read_entries += 1
             # entry.*_parsed may be None when the date in a RSS Feed is invalid
             # so will have the "now" date as default
@@ -147,7 +152,9 @@ def go():
             # last triggered execution
             if published is not None and now >= published >= date_grabbed:
                 content, image = set_content(entry)
-                res = Articles.objects.create(title=entry.title, text=content, image=image, feeds=my_feeds)
+                # add an article
+                res = Articles(title=entry.title, text=content, image=image, feeds=my_feeds)
+                res.save()
                 if res:
                     created_entries += 1
                     now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DD HH:mm:ssZZ')

@@ -59,10 +59,13 @@ class Articles(models.Model):
     title = models.CharField(max_length=255)
     image = models.TextField()
     text = models.TextField()
+    source_url = models.TextField(blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+    read_later = models.BooleanField(default=False)
 
     unreads = ArticlesUnreadManager()
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = "Articles"

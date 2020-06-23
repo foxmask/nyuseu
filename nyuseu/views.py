@@ -3,13 +3,34 @@
    Nyuseu - 뉴스 - Views
 """
 from django.db.models import Count, Case, When, IntegerField
-from django.views.generic import ListView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView
 
 from nyuseu.models import Articles, Folders, Feeds
 
 
-class ArticlesView(ListView):
-    template_name = 'index.html'
+def article_read_later(request, article_id):
+    Articles.objects.filter(id=article_id).update(read_later=True, read=True)
+    # @TODO display a message to say that the article is in state "read later"
+    return HttpResponseRedirect(reverse('home'))
+
+
+class FoldersMixin:
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        # get only the unread articles of the folders
+        folders = Folders.objects.annotate(
+            unread=Count(Case(When(feeds__articles__read=False, then=1), output_field=IntegerField()))
+        )
+        context = super(FoldersMixin, self).get_context_data(**kwargs)
+        context['folders'] = folders
+
+        return context
+
+
+class ArticlesListView(FoldersMixin, ListView):
+
     queryset = Articles.unreads   # get the unread articles
     paginate_by = 9
     ordering = ['-date_created']
@@ -23,34 +44,33 @@ class ArticlesView(ListView):
             feeds = Feeds.objects.filter(id=self.kwargs['feeds'])
             feeds_title = feeds[0].title
 
-        # get only the unread articles of the folders
-        folders = Folders.objects.annotate(
-            unread=Count(Case(When(feeds__articles__read=False, then=1), output_field=IntegerField()))
-        )
-
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
+
+        context = super(ArticlesListView, self).get_context_data(**kwargs)
         if page_size:
             paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
-            context = {
-                'paginator': paginator,
-                'page_obj': page,
-                'is_paginated': is_paginated,
-                'object_list': queryset,
-                'feeds_title': feeds_title,
-                'folders': folders
-            }
+            context['paginator'] = paginator
+            context['page_obj'] = page
+            context['is_paginated'] = is_paginated
+            context['object_list'] = queryset
+            context['feeds_title'] = feeds_title
         else:
-            context = {
-                'paginator': None,
-                'page_obj': None,
-                'is_paginated': False,
-                'object_list': queryset,
-                'feeds_title': feeds_title,
-                'folders': folders
-            }
+            context['paginator'] = None
+            context['page_obj'] = None
+            context['is_paginated'] = False
+            context['object_list'] = queryset
+            context['feeds_title'] = feeds_title
+
         if context_object_name is not None:
             context[context_object_name] = queryset
         context.update(kwargs)
 
         return context
+
+
+class ArticlesDetailView(FoldersMixin, DetailView):
+
+    model = Articles
+
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+{% include "menu_left.html" %}
+<div class="col-xs-10 col-md-10 col-lg-10">
+    <div class="col mb-4 card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ object.date_created }}</h6>
+                <p class="card-text">{{ object.text | safe}}</p>
+            </div>
+            <div class="card-footer">
+                {% include "nyuseu/article_footer.html" with id=object.id source_url=object.source_url %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

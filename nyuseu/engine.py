@@ -142,7 +142,6 @@ def go():
             # it may happened that feeds does not provide title ... yes !
             if 'title' not in entry:
                 entry['title'] = entry.link
-            console.print(f"Reading {entry.title}", style="yellow")
             read_entries += 1
             # entry.*_parsed may be None when the date in a RSS Feed is invalid
             # so will have the "now" date as default
@@ -153,7 +152,7 @@ def go():
             if published is not None and now >= published >= date_grabbed:
                 content, image = set_content(entry)
                 # add an article
-                res = Articles(title=entry.title, text=content, image=image, feeds=my_feeds)
+                res = Articles(title=entry.title, text=content, image=image, feeds=my_feeds, source_feeds=entry.link)
                 res.save()
                 if res:
                     created_entries += 1

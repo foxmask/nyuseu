@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from nyuseu.views import ArticlesView
+from nyuseu.views import ArticlesListView, ArticlesDetailView, article_read_later
 
 urlpatterns = [
-    path('', ArticlesView.as_view(), name="home"),
-    path('articles/<int:feeds>/', ArticlesView.as_view(), name="articles"),
+    path('', ArticlesListView.as_view(), name="home"),
+    path('feeds/<int:feeds>/', ArticlesListView.as_view(), name="feeds"),
+    path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="articles"),
+    path('articles/read_later/<int:article_id>/', article_read_later, name="article_read_later"),
     path('admin/', admin.site.urls),
 ]
 

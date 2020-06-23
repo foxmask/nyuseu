@@ -1,49 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="col-xs-2 col-md-2 col-lg-2">
-    {% for line in folders %}
-    <div class="accordion" id="accordionFolder">
-      <div class="card">
-        <div class="card-header" id="heading{{ line.id }}">
-          <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapse{{ line.id }}"
-                    aria-expanded="true"
-                    aria-controls="collapse{{ line.id }}">
-                {{ line.title }} {% if line.unread > 0 %}<span class="badge badge-secondary">{{ line.unread }}</span>{% endif %}
-            </button>
-          </h2>
-        </div>
-        {% for feed in line.feeds_set.all %}
-        <div id="collapse{{ line.id }}" class="collapse" aria-labelledby="heading{{ line.id }}" data-parent="#accordionFolder">
-          <div class="card-body">
-            <a href="{% url 'articles' feed.id %}">{{ feed.title }}</a> {% if feed.articles_set.unreads.count > 0 %}<span class="badge badge-secondary">{{ feed.articles_set.unreads.count }}</span>{% endif %}
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% endfor %}
-</div>
+{% include "menu_left.html" %}
 <div class="col-xs-10 col-md-10 col-lg-10">
     {% if feeds_title %}<h1>{{ feeds_title }}</h1>{% endif %}
     <div class="row row-cols-1 row-cols-md-3">
     {% for article in object_list %}
         <div class="col mb-4 card-deck">
             <div class="card">
-                {{ article.image |safe }}
+                <a href="{% url 'articles' article.id %}" title="View the complete article">{{ article.image |safe }}</a>
                 <div class="card-body">
-                    <h5 class="card-title">{{ article.title }}</h5>
+                    <h5 class="card-title"><a href="{% url 'articles' article.id %}" title="View the complete article">{{ article.title }}</a></h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}</h6>
                     <p class="card-text">{{ article.text | truncatechars_html:800 | safe}}</p>
                 </div>
-                <div class="card-footer">
-                    <a href="#" class="text-muted card-link">Read later</a>
-                    <a href="#" class="text-muted card-link">Share</a>
-                    <a href="#" class="text-muted card-link">Open</a>
-                </div>
+                {% include "nyuseu/article_footer.html" with id=article.id source_url=article.source_url %}
             </div>
         </div>
     {% endfor %}

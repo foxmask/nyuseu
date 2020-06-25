@@ -152,7 +152,7 @@ def go():
             if published is not None and now >= published >= date_grabbed:
                 content, image = set_content(entry)
                 # add an article
-                res = Articles(title=entry.title, text=content, image=image, feeds=my_feeds, source_feeds=entry.link)
+                res = Articles(title=entry.title, text=content, image=image, feeds=my_feeds, source_url=entry.link)
                 res.save()
                 if res:
                     created_entries += 1
@@ -163,7 +163,7 @@ def go():
                     console.print(f'Feeds {my_feeds.title} : {entry.title}', style="blue")
 
         if read_entries:
-            console.print(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}', style="blue")
+            console.print(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}', style="magenta")
         else:
             console.print(f'{my_feeds.title}: no feeds read', style="blue")
 

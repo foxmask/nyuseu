@@ -11,7 +11,19 @@ from nyuseu.models import Articles, Folders, Feeds
 
 
 def article_read_later(request, article_id):
+    """
+
+    """
     Articles.objects.filter(id=article_id).update(read_later=True, read=True)
+    # @TODO display a message to say that the article is in state "read later"
+    return HttpResponseRedirect(reverse('home'))
+
+
+def article_unread_later(request, article_id):
+    """
+
+    """
+    Articles.objects.filter(id=article_id).update(read_later=False, read=False)
     # @TODO display a message to say that the article is in state "read later"
     return HttpResponseRedirect(reverse('home'))
 

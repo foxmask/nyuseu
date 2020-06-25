@@ -13,7 +13,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}</h6>
                     <p class="card-text">{{ article.text | truncatechars_html:800 | safe}}</p>
                 </div>
-                {% include "nyuseu/article_footer.html" with id=article.id source_url=article.source_url %}
+                {% include "nyuseu/article_footer.html" with id=article.id read_later=article.read_later source_url=article.source_url %}
             </div>
         </div>
     {% endfor %}

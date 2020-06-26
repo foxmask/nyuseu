@@ -65,6 +65,26 @@ def _get_content(data, which_content):
     return content
 
 
+def revamped_images(content):
+    """
+
+    """
+    soup = BeautifulSoup(content, 'html.parser')
+    images = soup.find_all('img')
+    if images:
+        i = 0
+        card_class = 'card-img-top'
+        for image in images:
+            if i > 0:
+                card_class = 'card-img'
+            image['class'] = card_class
+            del image['height']
+            del image['width']
+            i += 1
+        content = soup
+    return content
+
+
 def set_content(entry):
     """
     which content to return ?
@@ -79,7 +99,10 @@ def set_content(entry):
     if content == '':
         if entry.get('description'):
             content = entry.get('description')
-    return content, get_image(entry, content)
+
+    image = get_image(entry, content)
+    content = revamped_images(content)
+    return content, image
 
 
 def from_feed(entry):
@@ -152,8 +175,11 @@ def go():
             if published is not None and now >= published >= date_grabbed:
                 content, image = set_content(entry)
                 # add an article
-                res = Articles(title=entry.title, text=content, image=image, feeds=my_feeds, source_url=entry.link)
-                res.save()
+                res = Articles.objects.create(title=entry.title,
+                                              text=str(content),
+                                              image=str(image),
+                                              feeds=my_feeds,
+                                              source_url=entry.link)
                 if res:
                     created_entries += 1
                     now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DD HH:mm:ssZZ')

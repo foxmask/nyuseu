@@ -2,6 +2,7 @@
 """
    Nyuseu - 뉴스 - Views
 """
+from django.contrib import messages
 from django.db.models import Count, Case, When, IntegerField
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -10,21 +11,39 @@ from django.views.generic import ListView, DetailView
 from nyuseu.models import Articles, Folders, Feeds
 
 
-def article_read_later(request, article_id):
+def marked_as_read(request, article_id):
+    """
+
+    """
+    Articles.objects.filter(id=article_id).update(read=True)
+    messages.add_message(request, messages.INFO, 'Article marked as read')
+    return HttpResponseRedirect(reverse('home'))
+
+
+def marked_as_unread(request, article_id):
+    """
+
+    """
+    Articles.objects.filter(id=article_id).update(read=False)
+    messages.add_message(request, messages.INFO, 'Article marked as unread')
+    return HttpResponseRedirect(reverse('home'))
+
+
+def read_later(request, article_id):
     """
 
     """
     Articles.objects.filter(id=article_id).update(read_later=True, read=True)
-    # @TODO display a message to say that the article is in state "read later"
+    messages.add_message(request, messages.INFO, 'Article added to the read later list')
     return HttpResponseRedirect(reverse('home'))
 
 
-def article_unread_later(request, article_id):
+def unread_later(request, article_id):
     """
 
     """
     Articles.objects.filter(id=article_id).update(read_later=False, read=False)
-    # @TODO display a message to say that the article is in state "read later"
+    messages.add_message(request, messages.INFO, 'Article removed to the read later list')
     return HttpResponseRedirect(reverse('home'))
 
 
@@ -85,4 +104,15 @@ class ArticlesDetailView(FoldersMixin, DetailView):
 
     model = Articles
 
-
+    def get_context_data(self, **kwargs):
+        """Insert the single object into the context dict."""
+        context = {}
+        if self.object:
+            # update the status "read" to True
+            Articles.objects.filter(id=self.object.id).update(read=True)
+            context['object'] = self.object
+            context_object_name = self.get_context_object_name(self.object)
+            if context_object_name:
+                context[context_object_name] = self.object
+        context.update(kwargs)
+        return super().get_context_data(**context)

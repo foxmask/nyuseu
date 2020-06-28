@@ -1,0 +1,14 @@
+    {% if messages %}
+    <div role="alert" aria-live="assertive"
+         data-animation="true"
+         aria-atomic="true"
+         class="toast mt-auto ml-auto mr-auto mb-auto"
+         data-delay="6000"
+         data-autohide="true">
+      <div class="toast-body mt-auto ml-auto mr-auto mb-auto alert alert-success">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}

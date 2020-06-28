@@ -16,14 +16,18 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from nyuseu.views import ArticlesListView, ArticlesDetailView, article_read_later, article_unread_later
+from nyuseu.views import ArticlesListView, ArticlesDetailView, \
+    read_later, unread_later,  marked_as_read, marked_as_unread
 
 urlpatterns = [
     path('', ArticlesListView.as_view(), name="home"),
     path('feeds/<int:feeds>/', ArticlesListView.as_view(), name="feeds"),
     path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="articles"),
-    path('articles/read_later/<int:article_id>/', article_read_later, name="article_read_later"),
-    path('articles/unread_later/<int:article_id>/', article_unread_later, name="article_unread_later"),
+    path('articles/read_later/<int:article_id>/', read_later, name="read_later"),
+    path('articles/unread_later/<int:article_id>/', unread_later, name="unread_later"),
+    path('articles/marked_as_read/<int:article_id>/', marked_as_read, name="marked_as_read"),
+    path('articles/marked_as_unread/<int:article_id>/', marked_as_unread, name="marked_as_unread"),
+
     path('admin/', admin.site.urls),
 ]
 

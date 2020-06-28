@@ -1,27 +1,27 @@
 <div class="col-xs-2 col-md-2 col-lg-2">
-    {% for line in folders %}
-    <div class="accordion" id="accordionFolder">
-      <div class="card">
-        <div class="card-header" id="heading{{ line.id }}">
-          <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#collapse{{ line.id }}"
-                    aria-expanded="true"
-                    aria-controls="collapse{{ line.id }}">
-                {{ line.title }} {% if line.unread > 0 %}<span class="badge badge-secondary">{{ line.unread }}</span>{% endif %}
-            </button>
-          </h2>
-        </div>
-        {% for feed in line.feeds_set.all %}
-        <div id="collapse{{ line.id }}" class="collapse" aria-labelledby="heading{{ line.id }}" data-parent="#accordionFolder">
-          <div class="card-body">
-            <a href="{% url 'feeds' feed.id %}">{{ feed.title }}</a> {% if feed.articles_set.unreads.count > 0 %}<span class="badge badge-secondary">{{ feed.articles_set.unreads.count }}</span>{% endif %}
-          </div>
-        </div>
+    <div class="treeview-animated">
+      <h6 class="pt-3 pl-3">
+        <a href="{% url 'home' %}">All</a>
+      </h6>
+      <hr>
+      <ul class="treeview-animated-list mb-3">
+        {% for line in folders %}
+        <li class="treeview-animated-items">
+          <a class="closed">
+            <i class="fas fa-angle-right"></i>
+            {{ line.title }} {% if line.unread > 0 %}<span class="badge badge-secondary">{{ line.unread }}</span>{% endif %}
+          </a>
+          <ul class="nested">
+            {% for feed in line.feeds_set.all %}
+              <li>
+                  <div class="treeview-animated-element justify-content-between align-items-center">
+                    <a href="{% url 'feeds' feed.id %}">{{ feed.title }}</a> {% if feed.articles_set.unreads.count > 0 %}<span class="badge badge-secondary">{{ feed.articles_set.unreads.count }}</span>{% endif %}
+                  </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
         {% endfor %}
-      </div>
+      </ul>
     </div>
-    {% endfor %}
 </div>

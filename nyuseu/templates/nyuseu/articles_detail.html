@@ -4,14 +4,13 @@
 <div class="col-xs-10 col-md-10 col-lg-10">
     <div class="col mb-4 card-deck">
         <div class="card">
+            {{ object.image | safe }}
             <div class="card-body">
                 <h5 class="card-title">{{ object.title }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ object.date_created }}</h6>
-                <p class="card-text">{{ object.text | safe}}</p>
+                <p class="card-text">{{ object.text | safe }}</p>
             </div>
-            <div class="card-footer">
-                {% include "nyuseu/article_footer.html" with id=object.id source_url=object.source_url %}
-            </div>
+            {% include "nyuseu/article_footer.html" with id=object.id read=object.read read_later=object.read_later source_url=object.source_url %}
         </div>
     </div>
 </div>

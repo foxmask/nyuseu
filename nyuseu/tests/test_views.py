@@ -1,12 +1,12 @@
 from django.test import RequestFactory, TestCase
 
-from nyuseu.views import ArticlesView
+from nyuseu.views import ArticlesListView
 
 
-class ArticlesViewTestCase(TestCase):
+class ArticlesListViewTestCase(TestCase):
 
     def setUp(self):
-        super(ArticlesViewTestCase, self).setUp()
+        super(ArticlesListViewTestCase, self).setUp()
         # Every test needs access to the request factory.
         self.factory = RequestFactory()
 
@@ -14,7 +14,7 @@ class ArticlesViewTestCase(TestCase):
         template = "index.html"
         # Setup request and view.
         request = RequestFactory().get('/')
-        view = ArticlesView.as_view(template_name=template)
+        view = ArticlesListView.as_view(template_name=template)
         # Run.
         response = view(request)
         # Check.
@@ -25,7 +25,7 @@ class ArticlesViewTestCase(TestCase):
         template = "index.html"
         # Setup request and view.
         request = RequestFactory().get('/articles/10/')
-        view = ArticlesView.as_view(template_name=template)
+        view = ArticlesListView.as_view(template_name=template)
         # Run.
         response = view(request)
         # Check.
@@ -36,7 +36,7 @@ class ArticlesViewTestCase(TestCase):
         template = "index.html"
         # Setup request and view.
         request = RequestFactory().get('/?page=1')
-        view = ArticlesView.as_view(template_name=template)
+        view = ArticlesListView.as_view(template_name=template)
         # Run.
         response = view(request)
         # Check.

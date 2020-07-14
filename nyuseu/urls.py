@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from nyuseu.views import ArticlesListView, ArticlesDetailView, \
-    read_later, unread_later,  marked_as_read, marked_as_unread
+from nyuseu.views import (ArticlesListView, ArticlesDetailView,
+                          read_later, unread_later, marked_as_read, marked_as_unread)
 
 urlpatterns = [
     path('', ArticlesListView.as_view(), name="home"),

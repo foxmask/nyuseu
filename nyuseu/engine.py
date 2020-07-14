@@ -194,4 +194,3 @@ def go():
             console.print(f'{my_feeds.title}: no feeds read', style="blue")
 
     console.print('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - Finished!', style="green")
-

@@ -17,7 +17,7 @@ def load(opml_resource):
         for folder in o_resource:
             for feed in folder:
                 log = f"{folder.text}, {feed.text}"
-                console.print(log, style="blue")
+                # console.print(log, style="blue")
                 # create the target folder if not exists
                 try:
                     f = Folders.objects.get(title=folder.text)
@@ -25,10 +25,14 @@ def load(opml_resource):
                     f = Folders.objects.create(title=folder.text)
 
                 # create the Feeds source if not exists
-                try:
-                    res = Feeds.objects.get(title=feed.text)
-                except Feeds.DoesNotExist:
-                    res = Feeds.objects.create(title=feed.text, url=feed.xmlUrl, folder=f)
+                obj, created = Feeds.objects.get_or_create(
+                    title=feed.text,
+                    defaults={'title': feed.text, 'url': feed.xmlUrl, 'folder': f},
+                )
+                if created:
+                    console.print(log + ' created', style="blue")
+                else:
+                    console.print(log + ' already created', style="yellow")
         console.print('Nyuseu - 뉴스 - Feeds Loaded', style="green")
     else:
         console.print(f"File {opml_resource} is not an OPML file", style="bold red")

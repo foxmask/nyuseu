@@ -1,4 +1,6 @@
-Django 
+arrow
+BeautifulSoup4
+Django
 django-environ
 feedparser
 httpx

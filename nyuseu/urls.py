@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from nyuseu.views import (ArticlesListView, ArticlesDetailView,
@@ -29,7 +30,7 @@ urlpatterns = [
     path('articles/marked_as_unread/<int:article_id>/', marked_as_unread, name="marked_as_unread"),
 
     path('admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar

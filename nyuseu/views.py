@@ -16,8 +16,9 @@ def marked_as_read(request, article_id):
 
     """
     Articles.objects.filter(id=article_id).update(read=True)
+    article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article marked as read')
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
 def marked_as_unread(request, article_id):
@@ -25,8 +26,9 @@ def marked_as_unread(request, article_id):
 
     """
     Articles.objects.filter(id=article_id).update(read=False)
+    article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article marked as unread')
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
 def read_later(request, article_id):
@@ -34,8 +36,9 @@ def read_later(request, article_id):
 
     """
     Articles.objects.filter(id=article_id).update(read_later=True, read=True)
+    article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article added to the read later list')
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
 def unread_later(request, article_id):
@@ -43,8 +46,9 @@ def unread_later(request, article_id):
 
     """
     Articles.objects.filter(id=article_id).update(read_later=False, read=False)
+    article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article removed to the read later list')
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
 class FoldersMixin:

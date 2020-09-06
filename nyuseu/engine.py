@@ -3,13 +3,12 @@
    뉴스 Engine
 """
 # std lib
+import arrow
 from django.conf import settings
 from bs4 import BeautifulSoup
 import feedparser
 import datetime
 import time
-# external lib
-import arrow
 
 import logging
 

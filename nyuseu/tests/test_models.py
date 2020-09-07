@@ -1,3 +1,4 @@
+# coding: utf-8
 from django.test import TestCase
 from nyuseu.models import Articles, Feeds, Folders
 
@@ -10,7 +11,7 @@ class FoldersTest(TestCase):
 
     def create_folders(self):
 
-        return Folders(title="FolderA")
+        return Folders.objects.create(title="FolderA")
 
     def test_folders(self):
         inst = self.create_folders()
@@ -26,13 +27,13 @@ class FeedsTest(TestCase):
 
     def create_feeds(self):
 
-        folder = Folders(title="FolderB")
+        folder = Folders.objects.create(title="FolderB")
 
         title = 'Le Free de la passion'
         url = 'https://foxmask.github.io/feeds/all.atom.xml'
         status = True
 
-        return Feeds(folder=folder, title=title, url=url, status=status)
+        return Feeds.objects.create(folder=folder, title=title, url=url, status=status)
 
     def test_feeds(self):
         inst = self.create_feeds()
@@ -48,19 +49,19 @@ class ArticlesTest(TestCase):
 
     def create_articles(self):
 
-        folder = Folders(title="FolderC")
+        folder = Folders.objects.create(title="FolderC")
 
         title = 'Le Free de la passion'
         url = 'https://foxmask.github.io/feeds/all.atom.xml'
         status = True
 
-        feeds = Feeds(folder=folder, title=title, url=url, status=status)
+        feeds = Feeds.objects.create(folder=folder, title=title, url=url, status=status)
 
         title = 'TEST TITLE'
         image = ''
         text = 'TEST'
         read = False
-        return Articles(feeds=feeds, title=title, image=image, text=text, read=read)
+        return Articles.objects.create(feeds=feeds, title=title, image=image, text=text, read=read)
 
     def test_articles(self):
         inst = self.create_articles()

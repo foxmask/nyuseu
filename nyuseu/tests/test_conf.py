@@ -1,9 +1,9 @@
 # coding: utf-8
-import unittest
 from django.conf import settings
+from django.test import TestCase
 
 
-class NyuseuSettingsTestCase(unittest.TestCase):
+class NyuseuSettingsTestCase(TestCase):
 
     """
       check that all the needed config is present

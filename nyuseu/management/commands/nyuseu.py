@@ -4,6 +4,7 @@
 """
 from django.core.management.base import BaseCommand
 from nyuseu.models import Articles
+import pypandoc
 from rich.console import Console
 from rich.table import Table
 from rich.markdown import Markdown
@@ -20,13 +21,14 @@ class Command(BaseCommand):
 
         if options['id']:
             article = Articles.objects.get(id=int(options['id']))
+            content = pypandoc.convert_text(article.text, 'markdown_github', format='html')
             table = Table(show_header=True, header_style="bold magenta")
             table.add_column("ID")
             table.add_column("Title")
             table.add_column("Body")
             table.add_row(str(article.id),
                           article.title,
-                          article.text)
+                          Markdown(content))
             article.read = True
             article.save()
         else:

@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="fr">
 <head>
@@ -8,11 +9,19 @@
                            integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
     <meta name="author" content="FoxMaSk">
-    <style>
-        small { font-size: 14px;}
-    </style>
+    <link rel="stylesheet" href="{% static 'nyuseu.css' %}" />
+
 </head>
 <body role="document">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top sticky-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-seedling"></i>
+            <span class="menu-collapsed">뉴스 - Nyuseu - News</span>
+        </a>
+    </nav>
     <div class="container-fluid">
         <div class="row">
         {% include "menu_left.html" %}
@@ -36,5 +45,6 @@
             integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="{% static 'nyuseu.js' %}"></script>
 </body>
 </html>

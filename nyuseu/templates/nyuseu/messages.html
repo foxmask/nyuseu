@@ -1,14 +1,10 @@
-    {% if messages %}
-    <div role="alert" aria-live="assertive"
-         data-animation="true"
-         aria-atomic="true"
-         class="toast mt-auto ml-auto mr-auto mb-auto"
-         data-delay="6000"
-         data-autohide="true">
-      <div class="toast-body mt-auto ml-auto mr-auto mb-auto alert alert-success">
-        {% for message in messages %}
-        {{ message }}
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %}
+{% if messages %}
+<div class="alert alert-primary" role="alert">
+{% for message in messages %}
+{{ message |safe }}
+{% endfor %}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}

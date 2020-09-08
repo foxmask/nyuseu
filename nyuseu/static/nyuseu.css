@@ -1,0 +1,45 @@
+small { font-size: 14px;}
+
+#sidebar-container {
+    min-height: 100vh;
+    background-color: #fff;
+    padding: 0;
+    position: fixed;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+    width: 230px;
+}
+.sidebar-collapsed {
+    width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+    height: 50px;
+    color: #000;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+    height: 50px;
+    padding-left: 30px;
+}
+.sidebar-submenu {
+    font-size: 0.9rem;
+}
+
+/* Separators */
+.sidebar-separator-title {
+    background-color: #fff;
+    height: 35px;
+}
+.sidebar-separator {
+    background-color: #fff;
+    height: 25px;
+}
+.logo-separator {
+    background-color: #fff;
+    height: 60px;
+}

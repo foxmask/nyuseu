@@ -17,7 +17,7 @@ def marked_as_read(request, article_id):
     """
     Articles.objects.filter(id=article_id).update(read=True)
     article = Articles.objects.get(id=article_id)
-    messages.add_message(request, messages.INFO, 'Article marked as read')
+    messages.add_message(request, messages.INFO, 'Article marked as <strong>read</strong>')
     return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
@@ -27,7 +27,7 @@ def marked_as_unread(request, article_id):
     """
     Articles.objects.filter(id=article_id).update(read=False)
     article = Articles.objects.get(id=article_id)
-    messages.add_message(request, messages.INFO, 'Article marked as unread')
+    messages.add_message(request, messages.INFO, 'Article marked as <strong>unread</strong>')
     return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
@@ -37,7 +37,8 @@ def read_later(request, article_id):
     """
     Articles.objects.filter(id=article_id).update(read_later=True, read=True)
     article = Articles.objects.get(id=article_id)
-    messages.add_message(request, messages.INFO, 'Article added to the read later list')
+    messages.add_message(request, messages.INFO, 'Article <strong>added</strong> '
+                                                 'to the <i>read later</i> list')
     return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 
@@ -47,7 +48,8 @@ def unread_later(request, article_id):
     """
     Articles.objects.filter(id=article_id).update(read_later=False, read=False)
     article = Articles.objects.get(id=article_id)
-    messages.add_message(request, messages.INFO, 'Article removed to the read later list')
+    messages.add_message(request, messages.INFO, 'Article <strong>removed</strong> '
+                                                 'to the <i>read later</i> list')
     return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
 
 

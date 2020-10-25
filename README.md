@@ -97,3 +97,10 @@ Gaming PlayStation.Blog
 Gaming jeuxvideo.com - PlayStation 4
 Nyuseu Server - 뉴스 - Feeds Loaded
 ```
+
+### get the update of your news 
+in your crontab add this for example
+
+```
+*/59 * * * * cd ~/Projects/nyuseu/ && . bin/activate && cd nyuseu && ./manage.py nyuseu_update
+``` 

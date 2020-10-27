@@ -13,7 +13,7 @@ import time
 import logging
 
 from nyuseu.models import Feeds, Articles
-from nyuseu.rss import Rss
+from feedparser_data import Rss
 from rich.console import Console
 
 # Get an instance of a logger

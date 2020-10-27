@@ -6,4 +6,4 @@ feedparser==6.0.1
 feedparser-data==0.1.0
 httpx==0.16.1
 opml==0.5
-rich=9.1.0
+rich==9.1.0

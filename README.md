@@ -1,18 +1,17 @@
 # 뉴스 - Nyuseu - News
 
-[![GitHub Action](https://github.com/foxmask/nyuseu/workflows/Python%20package/badge.svg)](https://github.com/foxmask/nyuseu/actions?query=workflow%3A%22Python+package%22) 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/foxmask/nyuseu/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/foxmask/nyuseu/?branch=master)
-
 News reader in `python 3.8` and `django 3.x`
 
-![Main page](https://github.com/foxmask/nyuseu/raw/master/nyuseu/doc/screenshot.png)
+![Main page](https://gitlab.com/annyong/nyuseu/-/raw/master/nyuseu/doc/screenshot.png)
 
-## Prerequistes 
+## :package: Installation
+
+### Requirements 
 
 * Python 3.7+
 * Django 3+
 
-## Installation
+### Installation
 create a virtualenv
 ```
 python3 -m venv nyuseu
@@ -104,3 +103,6 @@ in your crontab add this for example
 ```
 */59 * * * * cd ~/Projects/nyuseu/ && . bin/activate && cd nyuseu && ./manage.py nyuseu_update
 ``` 
+
+
+(Image credits to [Emojipedia](https://emojipedia.org/))

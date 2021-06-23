@@ -1,9 +1,9 @@
-arrow==0.17.0
+arrow==1.1.0
 beautifulsoup4==4.9.3
-Django==3.1.2
+Django==3.2.4
 django-environ==0.4.5
-feedparser==6.0.1
-feedparser-data==0.1.0
-httpx==0.16.1
+feedparser==6.0.8
+feedparser-data==0.1.1
+httpx==0.18.2
 opml==0.5
-rich==9.1.0
+rich==10.4.0

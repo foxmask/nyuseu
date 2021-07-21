@@ -1,3 +1,8 @@
+# coding: utf-8
+"""
+Nyuseu - News - 뉴스
+"""
+
 from django.contrib import admin
 from nyuseu.models import Articles, Feeds, Folders
 

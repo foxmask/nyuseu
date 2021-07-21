@@ -9,7 +9,7 @@ News reader in `python 3.8` and `django 3.x`
 ### Requirements 
 
 * Python 3.7+
-* Django 3+
+* Django 3.2+
 
 ### Installation
 create a virtualenv

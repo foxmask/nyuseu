@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-   Nyuseu - 뉴스 - Views
+Nyuseu - 뉴스 - Views
 """
 from django.contrib import messages
 from django.db.models import Count, Case, When, IntegerField

@@ -1,7 +1,8 @@
 # coding: utf-8
 """
-   뉴스 Engine
+Nyuseu - News - 뉴스
 """
+
 # std lib
 import arrow
 from django.conf import settings

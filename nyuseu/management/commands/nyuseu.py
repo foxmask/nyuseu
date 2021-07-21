@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-뉴스
+Nyuseu - News - 뉴스
 """
 from django.core.management.base import BaseCommand
 from nyuseu.models import Articles

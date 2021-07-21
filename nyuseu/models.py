@@ -1,7 +1,8 @@
 # coding: utf-8
 """
-   Nyuseu - 뉴스 - Models
+Nyuseu - News - 뉴스
 """
+
 import datetime
 from django.db import models
 

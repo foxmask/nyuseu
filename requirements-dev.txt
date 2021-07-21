@@ -5,3 +5,6 @@ pytest
 pytest-asyncio
 flake8
 coverage
+tox
+twine
+wheel

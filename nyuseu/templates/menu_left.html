@@ -1,26 +1,31 @@
 <!-- Sidebar -->
 <div class="col-xs-2 col-md-2 col-lg-2">
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-    <!-- Bootstrap List Group -->
-    <ul class="list-group">
-        {% for line in folders %}
-        <!-- Menu with submenu -->
-        <a href="#submenu{{ line.id }}" data-toggle="collapse" aria-expanded="false" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <i class="fas fa-leaf"></i>&nbsp;
-                <small><span class="menu-collapsed">{{ line.title }} {% if line.unread > 0 %}<span class="badge badge-secondary">{{ line.unread }}</span>{% endif %}</span></small>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        <div id='submenu{{ line.id }}' class="collapse sidebar-submenu">
+    <div class="accordion" id="accordionMenu">
+    {% for line in folders %}
+    <!-- Menu with submenu -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading{{ line.id }}">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZ{{ line.id }}" aria-expanded="false" aria-controls="collapseZ{{ line.id }}">
+            <i class="fas fa-leaf"></i>&nbsp;
+            <small><span class="menu-collapsed">{{ line.title }} {% if line.unread > 0 %}<span class="badge bg-secondary">{{ line.unread }}</span>{% endif %}</span></small>
+          </button>
+      </h2>
+      <div id="collapseZ{{ line.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ line.id }}" data-bs-parent="#accordionMenu">
+        <div class="accordion-body">
+            <ul class="list-group">
             {% for feed in line.feeds_set.all %}
-            <a href="{% url 'feeds' feed.id %}" class="list-group-item list-group-item-action">
-                <small><span class="menu-collapsed">{{ feed.title }}</span>
-                {% if feed.articles_set.unreads.count > 0 %}<span class="badge badge-secondary">{{ feed.articles_set.unreads.count }}</span>{% endif %}</small>
-            </a>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <a href="{% url 'feeds' feed.id %}">{{ feed.title }}</a>
+                </div>
+                {% if feed.articles_set.unreads.count > 0 %}<span class="badge bg-secondary rounded-pill">{{ feed.articles_set.unreads.count }}</span>{% endif %}
+                </li>
             {% endfor %}
+            </ul>
         </div>
-        {% endfor %}
-    </ul><!-- List Group END-->
-    </div><!-- sidebar-container END -->
+      </div>
+    </div>
+    {% endfor %}
+    </div>
 </div>
+<!-- sidebar END -->

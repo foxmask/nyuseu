@@ -97,6 +97,18 @@ Gaming jeuxvideo.com - PlayStation 4
 Nyuseu Server - 뉴스 - Feeds Loaded
 ```
 
+
+### :eyes: Exporting OPML file
+enter the following command
+```commandline
+python opml_export.py /path/to/the/file.opml
+```
+eg
+```commandline
+$ ./manage.py opml_export foobar.opml
+Nyuseu - 뉴스 - Feeds Exported in file foobar.opml
+```
+
 ### get the update of your news 
 in your crontab add this for example
 

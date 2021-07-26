@@ -9,8 +9,8 @@
             <div class="card">
                 <a href="{% url 'articles' article.id %}" title="View the complete article">{{ article.image |safe }}</a>
                 <div class="card-body {% if article.read %} text-muted{% endif %}">
-                    <h5 class="card-title"><a href="{% url 'articles' article.id %}" title="View the complete article">{{ article.title }}</a></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}</h6>
+                    <h5 class="card-title"><a href="{% url 'articles' article.id %}" title="View the complete article {{ article.title }}">{{ article.title }}</a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }} {% if feeds_title == '' %}| <a href="{% url 'feeds' article.feeds.id %}" title="List all article from feed {{ article.feeds.title }}">{{ article.feeds.title }}</a>{% endif %}</h6>
                     <p class="card-text">{{ article.text | truncatechars_html:100 | safe}}</p>
                 </div>
                 {% include "nyuseu/article_footer.html" with id=article.id read=article.read  read_later=article.read_later source_url=article.source_url %}

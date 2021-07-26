@@ -22,7 +22,6 @@ def load(opml_resource):
         for folder in o_resource:
             for feed in folder:
                 log = f"{folder.text}, {feed.text}"
-                # console.print(log, style="blue")
                 # create the target folder if not exists
                 try:
                     f = Folders.objects.get(title=folder.text)

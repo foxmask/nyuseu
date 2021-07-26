@@ -23,10 +23,9 @@ def export(opml_resource):
     <head>
         <title>Nyuseu subscriptions</title>
     </head>
-    <body>    
+    <body>
     """
-    footer = """
-    </body>
+    footer = """    </body>
 </opml>
     """
     if opml_resource.endswith('.opml') is False:
@@ -38,7 +37,9 @@ def export(opml_resource):
             for folder in Folders.objects.all():
                 f.write(f'        <outline text="{folder.title}" title="{folder.title}">\n')
                 for feed in folder.feeds_set.all():
-                    f.write(f'           <outline type="rss" text="{feed.title}" title="{feed.title}" xmlUrl="{feed.url}" htmlUrl="{feed.url}"/>\n')
+                    line = f'           <outline type="rss" text="{feed.title}" title="{feed.title}"'
+                    line += f'xmlUrl="{feed.url}" htmlUrl="{feed.url}"/>\n'
+                    f.write(line)
                 f.write('        </outline>\n')
             f.write(footer)
 

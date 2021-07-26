@@ -128,3 +128,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+nyuseu/static/admin/
+nyuseu/static/debug_toolbar/

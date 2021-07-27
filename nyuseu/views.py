@@ -5,10 +5,15 @@ Nyuseu - 뉴스 - Views
 from django.contrib import messages
 from django.db.models import Count, Case, When, IntegerField
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from nyuseu.models import Articles, Folders, Feeds
+
+
+def error_404(request, exception):
+    return render(request, '404.html')
 
 
 def marked_as_read(request, article_id):

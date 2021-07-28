@@ -71,6 +71,48 @@ class FoldersMixin:
         return context
 
 
+class FoldersListView(FoldersMixin, ListView):
+
+    model = Articles
+    paginate_by = 9
+    ordering = ['-date_created']
+    template_name = 'nyuseu/articles_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+
+        folder_title = ''
+        if 'folders' in self.kwargs:
+            folders = Folders.objects.get(id=self.kwargs['folders'])
+            folder_title = folders.title
+            queryset = Articles.objects.filter(feeds__folder__title=folders.title)
+
+        page_size = self.paginate_by
+        context_object_name = self.get_context_object_name(queryset)
+
+        context = super(FoldersListView, self).get_context_data(**kwargs)
+
+        if page_size:
+            paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
+            context['paginator'] = paginator
+            context['page_obj'] = page
+            context['is_paginated'] = is_paginated
+            context['object_list'] = queryset
+            context['folder_title'] = folder_title
+        else:
+            context['paginator'] = None
+            context['page_obj'] = None
+            context['is_paginated'] = False
+            context['object_list'] = queryset
+            context['folder_title'] = folder_title
+
+        if context_object_name is not None:
+            context[context_object_name] = queryset
+        context.update(kwargs)
+
+        return context
+
+
 class ArticlesListView(FoldersMixin, ListView):
 
     queryset = Articles.unreads   # get the unread articles
@@ -79,7 +121,6 @@ class ArticlesListView(FoldersMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
-
         feeds_title = ''
         if 'feeds' in self.kwargs:
             queryset = queryset.filter(feeds=self.kwargs['feeds'])

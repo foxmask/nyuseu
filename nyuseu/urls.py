@@ -21,11 +21,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from nyuseu.views import (ArticlesListView, ArticlesDetailView,
+from nyuseu.views import (ArticlesListView, ArticlesDetailView, FoldersListView,
                           read_later, unread_later, marked_as_read, marked_as_unread)
 
 urlpatterns = [
     path('', ArticlesListView.as_view(), name="home"),
+    path('folders/<int:folders>/', FoldersListView.as_view(), name="folders"),
     path('feeds/<int:feeds>/', ArticlesListView.as_view(), name="feeds"),
     path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="articles"),
     path('articles/read_later/<int:article_id>/', read_later, name="read_later"),

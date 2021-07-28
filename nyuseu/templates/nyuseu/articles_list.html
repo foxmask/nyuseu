@@ -3,6 +3,7 @@
 <div class="col-xs-10 col-md-10 col-lg-10">
     {% include "nyuseu/messages.html" %}
     {% if feeds_title %}<h1>{{ feeds_title }}</h1>{% endif %}
+    {% if folder_title %}<h1>{{ folder_title }}</h1>{% endif %}
     <div class="row row-cols-3 row-cols-md-3">
     {% for article in object_list %}
         <div class="card-deck mb-4">
@@ -10,7 +11,10 @@
                 <a href="{% url 'articles' article.id %}" title="View the complete article">{{ article.image |safe }}</a>
                 <div class="card-body {% if article.read %} text-muted{% endif %}">
                     <h5 class="card-title"><a href="{% url 'articles' article.id %}" title="View the complete article {{ article.title }}">{{ article.title }}</a></h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }} {% if feeds_title == '' %}| <a href="{% url 'feeds' article.feeds.id %}" title="List all article from feed {{ article.feeds.title }}">{{ article.feeds.title }}</a>{% endif %}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}
+                        | <a href="{% url 'feeds' article.feeds.id %}" title="List all articles from {{ article.feeds.title }}">{{ article.feeds.title }}</a>
+                        | <a href="{% url 'folders' article.feeds.folder.id %}" title="List all articles from {{ article.feeds.folder.title }}">{{ article.feeds.folder.title }}</a>
+                    </h6>
                     <p class="card-text">{{ article.text | truncatechars_html:100 | safe}}</p>
                 </div>
                 {% include "nyuseu/article_footer.html" with id=article.id read=article.read  read_later=article.read_later source_url=article.source_url %}

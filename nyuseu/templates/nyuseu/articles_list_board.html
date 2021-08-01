@@ -1,0 +1,27 @@
+{% extends "base_board.html" %}
+{% block content %}
+<div class="col-xs-12 col-md-12 col-lg-12">
+    <div class="row row-cols-6 row-cols-md-6">
+    {% for feed in object_list %}
+        {% if forloop.counter <= 25 %}
+            {% for article in feed.articles_set.all %}
+                {% if forloop.first %}
+        <div class="card-deck mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ article.source_url }}" title="Go to read the full article">{{ article.title }}</a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}
+                        | <a href="{% url 'feeds' feed.id %}" title="List all articles from {{ feed.title }}"><span class="badge bg-success">{{ feed.title }}</span></a>
+                        | <a href="{% url 'folders' feed.folder.id %}" title="List all articles from {{ feed.folder.title }}"><span class="badge bg-secondary">{{ feed.folder.title }}</span></a>
+                    </h6>
+                </div>
+
+            </div>
+        </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

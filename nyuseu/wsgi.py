@@ -1,3 +1,8 @@
+# coding: utf-8
+"""
+Nyuseu - News - 뉴스
+"""
+
 """
 WSGI config for nyuseu project.
 

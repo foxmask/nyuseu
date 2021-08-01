@@ -10,7 +10,7 @@
 </head>
 <body role="document">
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top sticky-top">
-        <div class="container-fluid">
+        <div class="container">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,7 +22,6 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
-        {% include "menu_left.html" %}
         <!-- container -->
         {% block content %}
         {% endblock %}
@@ -38,12 +37,13 @@
                     <p class="fs-5">Since 2020 <a href="https://gitlab.com/annyong/nyuseu">뉴스</a> - Nyuseu - News</p>
                 </div>
                 <div class="col-xs-4 col-md-4 col-lg-4">
-                    <p class="fs-6"><a href="{% url 'multiboards' %}">Multiboard</a></p>
+                    <p class="fs-6"><a href="{% url 'home' %}">Standard layout</a></p>
                 </div>
             </div>
         </div>
         {% endblock %}
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

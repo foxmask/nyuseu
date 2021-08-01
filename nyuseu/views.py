@@ -113,6 +113,13 @@ class FoldersListView(FoldersMixin, ListView):
         return context
 
 
+class ArticlesTinyListView(FoldersMixin, ListView):
+
+    model = Feeds
+    ordering = ['-date_created', 'title']
+    template_name = 'nyuseu/articles_list_board.html'
+
+
 class ArticlesListView(FoldersMixin, ListView):
 
     queryset = Articles.unreads   # get the unread articles

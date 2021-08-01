@@ -21,7 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from nyuseu.views import (ArticlesListView, ArticlesDetailView, FoldersListView,
+from nyuseu.views import (ArticlesListView, ArticlesDetailView, FoldersListView, ArticlesTinyListView,
                           read_later, unread_later, marked_as_read, marked_as_unread)
 
 urlpatterns = [
@@ -33,6 +33,8 @@ urlpatterns = [
     path('articles/unread_later/<int:article_id>/', unread_later, name="unread_later"),
     path('articles/marked_as_read/<int:article_id>/', marked_as_read, name="marked_as_read"),
     path('articles/marked_as_unread/<int:article_id>/', marked_as_unread, name="marked_as_unread"),
+
+    path('mb/', ArticlesTinyListView.as_view(), name="multiboards"),
 
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

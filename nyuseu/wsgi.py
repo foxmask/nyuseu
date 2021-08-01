@@ -1,9 +1,7 @@
 # coding: utf-8
 """
 Nyuseu - News - 뉴스
-"""
 
-"""
 WSGI config for nyuseu project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.

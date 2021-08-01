@@ -1,9 +1,7 @@
 # coding: utf-8
 """
 Nyuseu - News - 뉴스
-"""
 
-"""
 ASGI config for nyuseu project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.

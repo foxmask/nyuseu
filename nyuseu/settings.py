@@ -122,7 +122,7 @@ USE_I18N = env.bool('USE_I18N', default=True)
 
 USE_L10N = env.bool('USE_L10N', default=True)
 
-USE_TZ = env.str('USE_TZ', default='Europe/London')
+USE_TZ = env.str('USE_TZ', default=True)
 
 
 # Static files (CSS, JavaScript, Images)

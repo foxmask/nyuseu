@@ -2,7 +2,6 @@
 django-debug-toolbar
 pytest-django
 pytest
-pytest-asyncio
 flake8
 coverage
 tox

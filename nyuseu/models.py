@@ -3,15 +3,15 @@
 Nyuseu - News - 뉴스
 """
 
-import datetime
 from django.db import models
+from django.utils.timezone import now
 
 
 class Folders(models.Model):
 
     title = models.CharField(max_length=255, unique=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(default=datetime.datetime.now)
+    date_modified = models.DateTimeField(default=now())
 
     class Meta:
         verbose_name_plural = "Folders"
@@ -26,8 +26,8 @@ class Feeds(models.Model):
     title = models.CharField(max_length=255, unique=True)
     url = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(default=datetime.datetime.now)
-    date_grabbed = models.DateTimeField(default=datetime.datetime.now)
+    date_modified = models.DateTimeField(default=now())
+    date_grabbed = models.DateTimeField(default=now())
     status = models.BooleanField(default=True)
 
     class Meta:

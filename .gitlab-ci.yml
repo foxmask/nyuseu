@@ -8,6 +8,7 @@ include:
 - template: Jobs/SAST.gitlab-ci.yml
 - template: Security/SAST.gitlab-ci.yml
 - template: Security/Dependency-Scanning.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
 image: python:3.8.11
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
@@ -42,6 +43,6 @@ sast:
   variables:
     SAST_EXCLUDED_ANALYZERS: bandit, brakeman, eslint, flawfinder, gosec, kubesec,
       nodejs-scan, phpcs-security-audit, pmd-apex, security-code-scan, sobelow, spotbugs
-    SAST_EXCLUDED_PATHS: "venv"
-    SAST_SEMGREP_METRICS: "false"
+    SAST_EXCLUDED_PATHS: venv
+    SAST_SEMGREP_METRICS: 'false'
   stage: test

@@ -11,6 +11,9 @@ include:
 image: python:3.8.11
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # dependencies scanner to only keep gemnasium-python
+  DS_EXCLUDED_ANALYZERS: "bundler-audit, retire.js, gemnasium, gemnasium-maven"
+  SAST_BANDIT_EXCLUDED_PATHS: '*/tests/*, */venv/*'
 cache:
   paths:
   - ".cache/pip"

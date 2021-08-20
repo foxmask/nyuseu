@@ -19,7 +19,7 @@ class TestCmdMgt(TestCase):
         read = False
         Articles.objects.create(feeds=feeds, title=title, image=image, text=text, read=read)
         return feeds
-
+    """
     def test_run_nyuseu(self):
         self.create_stuff()
         management.call_command('nyuseu', verbosity=0)
@@ -31,7 +31,7 @@ class TestCmdMgt(TestCase):
     def test_run_nyuseu_update(self):
         self.create_stuff()
         management.call_command('nyuseu_update', verbosity=0)
-
+    """
     def test_run_opml_export(self):
         self.create_stuff()
         management.call_command('opml_export', 'sample/foobar.opml', verbosity=0)

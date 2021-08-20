@@ -19,7 +19,7 @@ cache:
   - venv/
 before_script:
 - apt-get update
-- apt-get install pandoc
+- apt-get install pandoc -y
 - python -V
 - pip install virtualenv
 - virtualenv venv

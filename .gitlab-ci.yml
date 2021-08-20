@@ -24,6 +24,7 @@ before_script:
 - source venv/bin/activate
 test:
   script:
+  - sudo apt-get install pandoc
   - pip install -r requirements-dev.txt
   - cp nyuseu/env.sample nyuseu/.env
   # - python -m pytest -s

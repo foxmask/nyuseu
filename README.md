@@ -10,8 +10,14 @@ News reader in `python 3.8` and `django 3.x`
 
 * Python 3.8+
 * Django 3.2+
+* pandoc
 
 ### Installation
+pandoc
+```bash
+sudo apt install pandoc
+```
+
 create a virtualenv
 ```
 python3 -m venv nyuseu

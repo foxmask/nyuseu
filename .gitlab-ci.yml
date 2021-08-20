@@ -19,8 +19,8 @@ cache:
   - venv/
 before_script:
 - apt-get update
-- apt-get install pandoc python3 python3-virtualenv python3-venv -y
-- python -V
+- apt-get install pandoc python3 python3-virtualenv python3-venv python3-pip -y
+- python3 -V
 - pip install virtualenv
 - virtualenv venv
 - source venv/bin/activate
@@ -35,10 +35,10 @@ deploy:
   script:
   - cat $PYPIRC > /tmp/.pypirc
   - cat $PYPIRC_PYPI > /tmp/.pypirc_pypi
-  - pip install twine
-  - python setup.py  bdist_wheel
-  - python -m twine upload --repository gitlab dist/* --config-file /tmp/.pypirc
-  - python -m twine upload dist/* --config-file /tmp/.pypirc_pypi
+  - pip3 install twine
+  - python3 setup.py  bdist_wheel
+  - python3 -m twine upload --repository gitlab dist/* --config-file /tmp/.pypirc
+  - python3 -m twine upload dist/* --config-file /tmp/.pypirc_pypi
   only:
   - tags
 stages:

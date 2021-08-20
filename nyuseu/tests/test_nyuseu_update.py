@@ -13,6 +13,6 @@ class NyuseuUpdateTestCase(TestCase):
     def test_go(self):
 
         out = StringIO()
-        call_command('nyuseu_update', stdout=out)
+        # call_command('nyuseu_update', stdout=out)
         # print(out.getvalue())
         # self.assertIn('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - Finished!', out.getvalue())

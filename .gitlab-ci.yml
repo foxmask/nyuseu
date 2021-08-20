@@ -17,8 +17,13 @@ cache:
   paths:
   - ".cache/pip"
   - venv/
+simple:
+  image:
+    name: pandoc
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    pandoc --help
 before_script:
-- apt-get install pandoc
 - python -V
 - pip install virtualenv
 - virtualenv venv

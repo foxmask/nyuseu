@@ -18,13 +18,13 @@ cache:
   - ".cache/pip"
   - venv/
 before_script:
+- apt-get install pandoc
 - python -V
 - pip install virtualenv
 - virtualenv venv
 - source venv/bin/activate
 test:
   script:
-  - apt-get install pandoc
   - pip install -r requirements-dev.txt
   - cp nyuseu/env.sample nyuseu/.env
   # - python -m pytest -s

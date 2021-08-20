@@ -5,15 +5,10 @@ Nyuseu - 뉴스 - Views
 from django.contrib import messages
 from django.db.models import Count, Case, When, IntegerField
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from nyuseu.models import Articles, Folders, Feeds
-
-
-def error_404(request, exception):
-    return render(request, '404.html')
 
 
 def marked_as_read(request, article_id):
@@ -73,38 +68,27 @@ class FoldersMixin:
 
 class FoldersListView(FoldersMixin, ListView):
 
-    model = Articles
+    model = Articles.articles.unreads()
     paginate_by = 9
     ordering = ['-date_created']
     template_name = 'nyuseu/articles_list.html'
 
+    def get_queryset(self):
+        return Articles.articles.unreads()
+
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
-
-        folder_title = ''
-        if 'folders' in self.kwargs:
-            folders = Folders.objects.get(id=self.kwargs['folders'])
-            folder_title = folders.title
-            queryset = Articles.objects.filter(feeds__folder__title=folders.title)
 
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
 
         context = super(FoldersListView, self).get_context_data(**kwargs)
 
-        if page_size:
-            paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
-            context['paginator'] = paginator
-            context['page_obj'] = page
-            context['is_paginated'] = is_paginated
-            context['object_list'] = queryset
-            context['folder_title'] = folder_title
-        else:
-            context['paginator'] = None
-            context['page_obj'] = None
-            context['is_paginated'] = False
-            context['object_list'] = queryset
-            context['folder_title'] = folder_title
+        paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
+        context['paginator'] = paginator
+        context['page_obj'] = page
+        context['is_paginated'] = is_paginated
+        context['object_list'] = queryset
 
         if context_object_name is not None:
             context[context_object_name] = queryset
@@ -122,12 +106,16 @@ class ArticlesTinyListView(FoldersMixin, ListView):
 
 class ArticlesListView(FoldersMixin, ListView):
 
-    queryset = Articles.unreads   # get the unread articles
+    queryset = Articles.articles.unreads()   # get the unread articles
     paginate_by = 9
     ordering = ['-date_created']
 
+    def get_queryset(self):
+        return Articles.articles.unreads()
+
     def get_context_data(self, *, object_list=None, **kwargs):
         queryset = object_list if object_list is not None else self.object_list
+
         feeds_title = ''
         if 'feeds' in self.kwargs:
             queryset = queryset.filter(feeds=self.kwargs['feeds'])
@@ -138,19 +126,13 @@ class ArticlesListView(FoldersMixin, ListView):
         context_object_name = self.get_context_object_name(queryset)
 
         context = super(ArticlesListView, self).get_context_data(**kwargs)
-        if page_size:
-            paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
-            context['paginator'] = paginator
-            context['page_obj'] = page
-            context['is_paginated'] = is_paginated
-            context['object_list'] = queryset
-            context['feeds_title'] = feeds_title
-        else:
-            context['paginator'] = None
-            context['page_obj'] = None
-            context['is_paginated'] = False
-            context['object_list'] = queryset
-            context['feeds_title'] = feeds_title
+
+        paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
+        context['paginator'] = paginator
+        context['page_obj'] = page
+        context['is_paginated'] = is_paginated
+        context['object_list'] = queryset
+        context['feeds_title'] = feeds_title
 
         if context_object_name is not None:
             context[context_object_name] = queryset

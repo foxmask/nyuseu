@@ -1,5 +1,5 @@
-VERSION = (0, 1, 0)  # PEP 386
-__version__ = ".".join([str(x) for x in VERSION])
+with open('VERSION.txt', 'r') as f:
+    __version__ = f.read()
 
 
 default_app_config = 'nyuseu.apps.NyuseuConfig'

@@ -5,7 +5,7 @@ Nyuseu - News - 뉴스
 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -20,9 +20,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from nyuseu.views import (ArticlesListView, ArticlesDetailView, FoldersListView, ArticlesTinyListView,
-                          read_later, unread_later, marked_as_read, marked_as_unread)
+from django.urls import include, path
+from nyuseu.views import (ArticlesListView, ArticlesDetailView, FoldersListView, ArticlesTinyListView)
+from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread)
+
 
 urlpatterns = [
     path('', ArticlesListView.as_view(), name="home"),
@@ -37,12 +38,13 @@ urlpatterns = [
     path('mb/', ArticlesTinyListView.as_view(), name="multiboards"),
 
     path('admin/', admin.site.urls),
+    path('api/', include('nyuseu.api.urls')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-handler404 = 'nyuseu.views.error_404'
 
-# if settings.DEBUG:
-#     import debug_toolbar
-#     urlpatterns = [
-#         path('__debug__/', include(debug_toolbar.urls)),
-#     ] + urlpatterns
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

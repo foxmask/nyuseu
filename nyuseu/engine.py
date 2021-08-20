@@ -152,7 +152,7 @@ def go():
     """
 
     """
-    console.print('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - in progress', style="green")
+    console.print('Nyuseu Engine - 뉴스 - Feeds Reader - in progress', style="green")
     feeds = Feeds.objects.all()
     for my_feeds in feeds:
         rss = Rss()
@@ -194,4 +194,4 @@ def go():
         else:
             console.print(f'{my_feeds.title}: no feeds read', style="blue")
 
-    console.print('Nyuseu Server Engine - 뉴스 - Feeds Reader Server - Finished!', style="green")
+    console.print('Nyuseu Engine - 뉴스 - Feeds Reader - Finished!', style="green")

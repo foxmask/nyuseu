@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<opml version="1.0">
+    <head>
+        <title>foxmask subscriptions in feedly Cloud</title>
+    </head>
+    <body>
+        <outline text="Corée" title="Corée">
+            <outline type="rss" text="News - French [KBS WORLD Radio] | Science" title="News - French [KBS WORLD Radio] | Science" xmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;id=Sc" htmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;amp;id=Sc"/>
+            <outline type="rss" text="News - French [KBS WORLD Radio] | Intercoréen" title="News - French [KBS WORLD Radio] | Intercoréen" xmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;id=IK" htmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;amp;id=IK"/>
+            <outline type="rss" text="[KBS WORLD RADIO] KPOP NEWS" title="[KBS WORLD RADIO] KPOP NEWS" xmlUrl="http://world.kbs.co.kr/rss/rss_enternews.htm?lang=e" htmlUrl="http://world.kbs.co.kr/service/?lang=e"/>
+            <outline type="rss" text="News - French [KBS WORLD Radio] | Sports" title="News - French [KBS WORLD Radio] | Sports" xmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;id=Sp" htmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;amp;id=Sp"/>
+            <outline type="rss" text="News - French [KBS WORLD Radio] | Intérieur" title="News - French [KBS WORLD Radio] | Intérieur" xmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;id=Dm" htmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;amp;id=Dm"/>
+            <outline type="rss" text="News - French [KBS WORLD Radio] | Culture" title="News - French [KBS WORLD Radio] | Culture" xmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;id=Cu" htmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;amp;id=Cu"/>
+            <outline type="rss" text="News - French [KBS WORLD Radio] | Economie" title="News - French [KBS WORLD Radio] | Economie" xmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;id=Ec" htmlUrl="http://world.kbs.co.kr/rss/rss_news.htm?lang=f&amp;amp;id=Ec"/>
+        </outline>
+        <outline text="Humor" title="Humor">
+            <outline type="rss" text="Le blog d'un odieux connard" title="Le blog d'un odieux connard" xmlUrl="http://odieuxconnard.wordpress.com/feed/" htmlUrl="https://unodieuxconnard.com"/>
+        </outline>
+        <outline text="Dev" title="Dev">
+            <outline type="rss" text="Vue.js News" title="Vue.js News" xmlUrl="https://news.vuejs.org/feed.xml" htmlUrl="https://news.vuejs.org/feed.xml"/>
+            <outline type="rss" text="Real Python" title="Real Python" xmlUrl="http://www.realpython.com/blog/posts/rss.xml" htmlUrl="https://realpython.com/"/>
+            <outline type="rss" text="PyCharm Blog" title="PyCharm Blog" xmlUrl="http://blog.jetbrains.com/pycharm/feed/" htmlUrl="https://blog.jetbrains.com/pycharm"/>
+            <outline type="rss" text="Python Insider" title="Python Insider" xmlUrl="http://feeds.feedburner.com/PythonInsider" htmlUrl="https://pythoninsider.blogspot.com/"/>
+            <outline type="rss" text="The Django weblog" title="The Django weblog" xmlUrl="http://www.djangoproject.com/rss/weblog/" htmlUrl="https://www.djangoproject.com/weblog/"/>
+            <outline type="rss" text="Ned Batchelder's blog" title="Ned Batchelder's blog" xmlUrl="http://nedbatchelder.com/blog/rss.xml" htmlUrl="https://nedbatchelder.com/blog"/>
+            <outline type="rss" text="Pythonic News: Latest" title="Pythonic News: Latest" xmlUrl="https://news.python.sc/newest/feed/" htmlUrl="https://news.python.sc/newest/"/>
+            <outline type="rss" text="Caktus Blog" title="Caktus Blog" xmlUrl="http://www.caktusgroup.com/feeds/main/" htmlUrl="http://www.caktusgroup.com/blog/"/>
+            <outline type="rss" text="The Official Vue News" title="The Official Vue News" xmlUrl="https://vuenews.fireside.fm/rss" htmlUrl="http://news.vuejs.org"/>
+        </outline>
+        <outline text="Android" title="Android">
+            <outline type="rss" text="Les Numériques" title="Les Numériques" xmlUrl="http://www.lesnumeriques.com/rss.xml" htmlUrl="https://www.lesnumeriques.com/"/>
+            <outline type="rss" text="Frandroid" title="Frandroid" xmlUrl="http://feeds.feedburner.com/frandroid" htmlUrl="https://www.frandroid.com"/>
+        </outline>
+        <outline text="Dys" title="Dys">
+            <outline type="rss" text="Fédération Française des DYS" title="Fédération Française des DYS" xmlUrl="http://www.ffdys.com/feed" htmlUrl="https://www.ffdys.com"/>
+        </outline>
+        <outline text="Gaming" title="Gaming">
+            <outline type="rss" text="NoFrag" title="NoFrag" xmlUrl="http://www.nofrag.com/nofrag.rss" htmlUrl="https://nofrag.com"/>
+            <outline type="rss" text="Gameblog" title="Gameblog" xmlUrl="http://www.gameblog.fr/rss.php" htmlUrl="http://www.gameblog.fr/"/>
+            <outline type="rss" text="Gamekult - Jeux vidéo PC et consoles: tout l'univers des joueurs" title="Gamekult - Jeux vidéo PC et consoles: tout l'univers des joueurs" xmlUrl="http://www.gamekult.com/cobranding/rss/news.xml" htmlUrl="https://www.gamekult.com/"/>
+            <outline type="rss" text="PlayStation.Blog" title="PlayStation.Blog" xmlUrl="http://feeds.feedburner.com/PSBlog" htmlUrl="https://blog.playstation.com"/>
+            <outline type="rss" text="jeuxvideo.com - PlayStation 4" title="jeuxvideo.com - PlayStation 4" xmlUrl="http://www.jeuxvideo.com/rss/rss-ps4.xml" htmlUrl="http://www.jeuxvideo.com/"/>
+        </outline>
+    </body>
+</opml>

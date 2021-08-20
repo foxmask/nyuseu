@@ -1,3 +1,14 @@
+# 0.3.0
+
+## News :
+- New API to add stuff
+## Fix migration:
+- in models.py
+date_modified = models.DateTimeField(default=django.utils.timezone.now)
+vs
+import django.utils.timezone date_modified = models.DateTimeField(default=now())
+
+
 # 0.2.0
 
 can switch of laybout with "multiboard"

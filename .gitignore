@@ -131,3 +131,4 @@ dmypy.json
 
 nyuseu/static/admin/
 nyuseu/static/debug_toolbar/
+sample/foobar.opml

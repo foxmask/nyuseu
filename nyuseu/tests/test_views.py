@@ -3,8 +3,30 @@ from django.test import RequestFactory, TestCase
 from django.contrib.messages.storage.fallback import FallbackStorage
 
 from nyuseu.models import Feeds, Folders, Articles
-from nyuseu.views import ArticlesListView, ArticlesDetailView,\
-    marked_as_read, marked_as_unread, read_later, unread_later
+from nyuseu.views import FoldersListView, ArticlesListView, ArticlesDetailView
+from nyuseu.views import marked_as_read, marked_as_unread, read_later, unread_later
+
+
+class FoldersListViewTestCase(TestCase):
+
+    def create_folder(self):
+        return Folders.objects.create(title="FolderX")
+
+    def setUp(self):
+        super(FoldersListViewTestCase, self).setUp()
+        self.factory = RequestFactory()
+
+    def test_articleslist_for_folder(self):
+        folder = self.create_folder()
+        template = "nyuseu/articles_list.html"
+        # Setup request and view.
+        request = RequestFactory().get(f'/folders/{folder.id}')
+        view = FoldersListView.as_view(template_name=template)
+        # Run.
+        response = view(request)
+        # Check.
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.template_name[0], "nyuseu/articles_list.html")
 
 
 class ArticlesListViewTestCase(TestCase):
@@ -43,7 +65,7 @@ class ArticlesListViewTestCase(TestCase):
         feeds = self.create_stuff()
         template = "nyuseu/articles_list.html"
         # Setup request and view.
-        request = RequestFactory().get('feeds/{}/'.format(feeds.id))
+        request = RequestFactory().get(f'/feeds/{feeds.id}/')
         kwargs = {'feeds': feeds.id}
         view = ArticlesListView.as_view(template_name=template)(request, **kwargs)
         # Run.
@@ -56,7 +78,7 @@ class ArticlesListViewTestCase(TestCase):
         feeds = self.create_stuff()
         template = "nyuseu/articles_list.html"
         # Setup request and view.
-        request = RequestFactory().get('feeds/{}/'.format(feeds.id))
+        request = RequestFactory().get(f'/feeds/{feeds.id}/')
         kwargs = {'feeds': feeds.id}
         view = ArticlesListView.as_view(template_name=template)(request, **kwargs)
         # Run.
@@ -102,7 +124,7 @@ class ArticlesDetailViewTestCase(TestCase):
         article = self.create_articles()
         template = "nyuseu/articles_detail.html"
         # Setup request and view.
-        request = RequestFactory().get('articles/{}/'.format(article.id))
+        request = RequestFactory().get(f'articles/{article.id}/')
         view = ArticlesDetailView.as_view(template_name=template)
         # Run.
         response = view(request, pk=article.id)

@@ -4,14 +4,14 @@ Nyuseu - News - 뉴스
 """
 
 from django.db import models
-from django.utils.timezone import now
+import django.utils.timezone
 
 
 class Folders(models.Model):
 
     title = models.CharField(max_length=255, unique=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(default=now())
+    date_modified = models.DateTimeField(default=django.utils.timezone.now)
 
     class Meta:
         verbose_name_plural = "Folders"
@@ -26,8 +26,8 @@ class Feeds(models.Model):
     title = models.CharField(max_length=255, unique=True)
     url = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(default=now())
-    date_grabbed = models.DateTimeField(default=now())
+    date_modified = models.DateTimeField(default=django.utils.timezone.now)
+    date_grabbed = models.DateTimeField(default=django.utils.timezone.now)
     status = models.BooleanField(default=True)
 
     class Meta:
@@ -38,6 +38,9 @@ class Feeds(models.Model):
 
 
 class ArticlesQS(models.QuerySet):
+    """
+        QuerySet
+    """
 
     def unreads(self):
         return self.filter(read=False)
@@ -45,7 +48,7 @@ class ArticlesQS(models.QuerySet):
 
 class ArticlesUnreadManager(models.Manager):
     """
-    get the unread articles
+        Manager to get the unread articles
     """
     def get_queryset(self):
         return ArticlesQS(self.model, using=self._db)  # Important!
@@ -65,7 +68,7 @@ class Articles(models.Model):
     read = models.BooleanField(default=False)
     read_later = models.BooleanField(default=False)
 
-    unreads = ArticlesUnreadManager()
+    articles = ArticlesUnreadManager()
     objects = models.Manager()
 
     class Meta:

@@ -1,22 +1,19 @@
 # coding: utf-8
 """
-Nyuseu - News - 뉴스
+Nyuseu :: News :: 뉴스
 """
 
 # std lib
 import arrow
-from django.conf import settings
 from bs4 import BeautifulSoup
-import feedparser
 import datetime
-import time
-
-import logging
-
-from nyuseu.models import Feeds, Articles
+from django.conf import settings
+import feedparser
 from feedparser_data import Rss
+import logging
+from nyuseu.models import Feeds, Articles
 from rich.console import Console
-
+import time
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -26,7 +23,7 @@ __all__ = ['go']
 console = Console()
 
 
-def get_published(entry) -> datetime:
+def _get_published(entry) -> datetime:
     """
     get the 'published' attribute
     :param entry:
@@ -139,7 +136,7 @@ def from_content(content):
 
 def get_image(entry, content):
     """
-
+        get the image of the news
     """
     new_image = from_feed(entry)
     if new_image == '':
@@ -150,7 +147,7 @@ def get_image(entry, content):
 
 def go():
     """
-
+        get the data of each RSS Feeds, then create `Articles`
     """
     console.print('Nyuseu Engine - 뉴스 - Feeds Reader - in progress', style="green")
     feeds = Feeds.objects.all()
@@ -169,7 +166,7 @@ def go():
             read_entries += 1
             # entry.*_parsed may be None when the date in a RSS Feed is invalid
             # so will have the "now" date as default
-            published = get_published(entry)
+            published = _get_published(entry)
             if published:
                 published = arrow.get(published).to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
             # last triggered execution

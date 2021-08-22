@@ -1,4 +1,7 @@
 # coding: utf-8
+"""
+Nyuseu :: News :: 뉴스
+"""
 from django.core import management
 from django.test import TestCase
 from nyuseu.models import Articles, Folders, Feeds
@@ -22,22 +25,22 @@ class TestCmdMgt(TestCase):
     """
     def test_run_nyuseu(self):
         self.create_stuff()
-        management.call_command('nyuseu', verbosity=0)
+        management.call_command('read', verbosity=0)
 
     def test_run_nyuseu2(self):
         article = self.create_stuff()
-        management.call_command('nyuseu', f"-id={article.id}", verbosity=0)
+        management.call_command('read', f"-id={article.id}", verbosity=0)
 
     def test_run_nyuseu_update(self):
         self.create_stuff()
-        management.call_command('nyuseu_update', verbosity=0)
+        management.call_command('update', verbosity=0)
     """
     def test_run_opml_export(self):
         self.create_stuff()
-        management.call_command('opml_export', 'sample/foobar.opml', verbosity=0)
+        management.call_command('opml_dump', 'sample/foobar.opml', verbosity=0)
 
     def test_run_opml_export2(self):
-        management.call_command('opml_export', 'sample/foobar', verbosity=0)
+        management.call_command('opml_dump', 'sample/foobar', verbosity=0)
 
     def test_run_opml_load(self):
         opml_file = 'sample/feedly-e2343e92-9e71-4345-b045-cef7e1736cd2-2020-06-20.opml'

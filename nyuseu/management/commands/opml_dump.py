@@ -1,11 +1,12 @@
 # coding: utf-8
 """
-Nyuseu - News - 뉴스
+Nyuseu :: News :: 뉴스
 """
 
 from django.core.management.base import BaseCommand
-from rich.console import Console
+from html import escape
 from nyuseu.models import Folders
+from rich.console import Console
 
 __author__ = 'FoxMaSk'
 
@@ -14,18 +15,18 @@ console = Console()
 
 def export(opml_resource):
     """
-    export an OPML file
+    dump all RSS Feeds to an OPML file
     """
     header = """
 <?xml version="1.0" encoding="UTF-8"?>
-
 <opml version="1.0">
     <head>
         <title>Nyuseu subscriptions</title>
     </head>
     <body>
     """
-    footer = """    </body>
+    footer = """
+    </body>
 </opml>
     """
     if opml_resource.endswith('.opml') is False:
@@ -37,17 +38,17 @@ def export(opml_resource):
             for folder in Folders.objects.all():
                 f.write(f'        <outline text="{folder.title}" title="{folder.title}">\n')
                 for feed in folder.feeds_set.all():
-                    line = f'           <outline type="rss" text="{feed.title}" title="{feed.title}"'
-                    line += f'xmlUrl="{feed.url}" htmlUrl="{feed.url}"/>\n'
+                    line = f'           <outline type="rss" text="{feed.title}" title="{feed.title}" '
+                    line += f'xmlUrl="{escape(feed.url)}" htmlUrl="{escape(feed.url)}"/>\n'
                     f.write(line)
                 f.write('        </outline>\n')
             f.write(footer)
 
-            console.print(f'Nyuseu - 뉴스 - Feeds Exported in file {opml_resource}', style="green")
+            console.print(f'Nyuseu :: 뉴스 :: News - Feeds Exported in file {opml_resource}', style="green")
 
 
 class Command(BaseCommand):
-    help = 'Export OMPL file'
+    help = 'Export RSS Feeds to OMPL file'
 
     def add_arguments(self, parser):
         parser.add_argument("opml_file", help="provide the path to the OPML file", type=str)

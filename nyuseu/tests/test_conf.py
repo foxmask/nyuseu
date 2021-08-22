@@ -1,4 +1,7 @@
 # coding: utf-8
+"""
+Nyuseu :: News :: 뉴스
+"""
 from django.conf import settings
 from django.test import TestCase
 import os

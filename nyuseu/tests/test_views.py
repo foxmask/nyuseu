@@ -1,4 +1,7 @@
 # coding: utf-8
+"""
+Nyuseu :: News :: 뉴스
+"""
 from django.test import RequestFactory, TestCase
 from django.contrib.messages.storage.fallback import FallbackStorage
 

@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Nyuseu - News - 뉴스
+Nyuseu :: News :: 뉴스
 """
 from django.core.management.base import BaseCommand
 from nyuseu.models import Articles
@@ -9,10 +9,17 @@ from rich.console import Console
 from rich.table import Table
 from rich.markdown import Markdown
 
+__author__ = 'FoxMaSk'
+
 console = Console()
 
 
 class Command(BaseCommand):
+    """
+    Command to list all the articles or read one. Once an article is read is no more available
+    """
+
+    help = 'Read a news from \'Nyuseu :: 뉴스 :: News\' or list all articles'
 
     def add_arguments(self, parser):
         parser.add_argument("-id", type=int, help="ID of the article to read")

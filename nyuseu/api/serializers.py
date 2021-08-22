@@ -1,7 +1,8 @@
 # coding: utf-8
 """
-Nyuseu - News - 뉴스
+Nyuseu :: News :: 뉴스
 """
+
 from nyuseu.models import Folders, Feeds, Articles
 
 from rest_framework import serializers

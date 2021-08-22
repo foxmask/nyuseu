@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Nyuseu - News - 뉴스
+Nyuseu :: News :: 뉴스
 
 URL Configuration
 
@@ -34,10 +34,11 @@ urlpatterns = [
     path('articles/unread_later/<int:article_id>/', unread_later, name="unread_later"),
     path('articles/marked_as_read/<int:article_id>/', marked_as_read, name="marked_as_read"),
     path('articles/marked_as_unread/<int:article_id>/', marked_as_unread, name="marked_as_unread"),
-
+    # multiboard
     path('mb/', ArticlesTinyListView.as_view(), name="multiboards"),
-
+    # admin
     path('admin/', admin.site.urls),
+    # API
     path('api/', include('nyuseu.api.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Nyuseu - News - 뉴스
+Nyuseu :: News :: 뉴스
 """
 
 from django.db import models
@@ -8,6 +8,9 @@ import django.utils.timezone
 
 
 class Folders(models.Model):
+    """
+        Folders Model
+    """
 
     title = models.CharField(max_length=255, unique=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -21,6 +24,9 @@ class Folders(models.Model):
 
 
 class Feeds(models.Model):
+    """
+        Feeds Model
+    """
 
     folder = models.ForeignKey(Folders, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, unique=True)
@@ -58,6 +64,9 @@ class ArticlesUnreadManager(models.Manager):
 
 
 class Articles(models.Model):
+    """
+        Articles Model
+    """
 
     feeds = models.ForeignKey(Feeds, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)

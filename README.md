@@ -1,4 +1,4 @@
-# 뉴스 - Nyuseu - News
+# Nyuseu :: News :: 뉴스
 
 News reader in `python 3.8` and `django 3.x`
 
@@ -107,12 +107,12 @@ Nyuseu Server - 뉴스 - Feeds Loaded
 ### :eyes: Exporting OPML file
 enter the following command
 ```commandline
-python opml_export.py /path/to/the/file.opml
+python opml_dump.py /path/to/the/file.opml
 ```
 eg
 ```commandline
-$ ./manage.py opml_export foobar.opml
-Nyuseu - 뉴스 - Feeds Exported in file foobar.opml
+$ ./manage.py opml_dump foobar.opml
+Nyuseu :: 뉴스 :: News - Feeds Exported in file foobar.opml
 ```
 
 ### get the update of your news 

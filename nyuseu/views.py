@@ -13,7 +13,7 @@ from nyuseu.models import Articles, Folders, Feeds
 
 def marked_as_read(request, article_id):
     """
-
+        mark an article as read
     """
     Articles.objects.filter(id=article_id).update(read=True)
     article = Articles.objects.get(id=article_id)
@@ -23,7 +23,7 @@ def marked_as_read(request, article_id):
 
 def marked_as_unread(request, article_id):
     """
-
+        mark an article as unread
     """
     Articles.objects.filter(id=article_id).update(read=False)
     article = Articles.objects.get(id=article_id)
@@ -33,7 +33,7 @@ def marked_as_unread(request, article_id):
 
 def read_later(request, article_id):
     """
-
+        mark an article as to read it later
     """
     Articles.objects.filter(id=article_id).update(read_later=True, read=True)
     article = Articles.objects.get(id=article_id)
@@ -44,7 +44,7 @@ def read_later(request, article_id):
 
 def unread_later(request, article_id):
     """
-
+        unmark an article as to read it later
     """
     Articles.objects.filter(id=article_id).update(read_later=False, read=False)
     article = Articles.objects.get(id=article_id)
@@ -54,6 +54,9 @@ def unread_later(request, article_id):
 
 
 class FoldersMixin:
+    """
+        mixin Folders to get all the Folders on the menu_left.html template
+    """
 
     def get_context_data(self, *, object_list=None, **kwargs):
         # get only the unread articles of the folders
@@ -67,6 +70,9 @@ class FoldersMixin:
 
 
 class FoldersListView(FoldersMixin, ListView):
+    """
+        Folders List
+    """
 
     model = Articles.articles.unreads()
     paginate_by = 9
@@ -98,6 +104,9 @@ class FoldersListView(FoldersMixin, ListView):
 
 
 class ArticlesTinyListView(FoldersMixin, ListView):
+    """
+        Article List : Multiboard
+    """
 
     model = Feeds
     ordering = ['-date_created', 'title']
@@ -105,6 +114,9 @@ class ArticlesTinyListView(FoldersMixin, ListView):
 
 
 class ArticlesListView(FoldersMixin, ListView):
+    """
+        Articles List
+    """
 
     queryset = Articles.articles.unreads()   # get the unread articles
     paginate_by = 9
@@ -142,6 +154,9 @@ class ArticlesListView(FoldersMixin, ListView):
 
 
 class ArticlesDetailView(FoldersMixin, DetailView):
+    """
+        Articles Details
+    """
 
     model = Articles
 

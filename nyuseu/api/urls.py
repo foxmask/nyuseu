@@ -14,6 +14,13 @@ router.register(r'articles', ArticlesViewSet)
 router.register(r'feeds', FeedsViewSet)
 router.register(r'folders', FoldersViewSet)
 
+api_schema_desc = "<h2>Description</h2><br/>" \
+                  "This is the complete API to deal with " \
+                  "<a href=\"https://gitlab.com/annyong/nyuseu\">'Nyuseu :: 뉴스 :: News'</a> data<br/>" \
+                  "<h2>Help</h2><br/> " \
+                  "You can find out help on " \
+                  "<a href=\"https://framateam.org/annyong/channels/town-square\">the Mattermost instance</a>",
+
 urlpatterns = [
     path('v1/', include(router.urls)),
     # path('v2/', include(router.urls)),
@@ -25,7 +32,7 @@ urlpatterns = [
     ), name='swagger-ui'),
     path('v1/openapi', get_schema_view(
         title="Nyuseu :: 뉴스 :: News - API",
-        description="<h2>Description</h2><br/>This is the complete API to deal with <a href=\"https://gitlab.com/annyong/nyuseu\">'Nyuseu :: 뉴스 :: News'</a> data<br/><h2>Help</h2><br/> You can find out help on <a href=\"https://framateam.org/annyong/channels/town-square\">the Mattermost instance</a>",
+        description=api_schema_desc,
         version=nyuseu.__version__
     ), name='openapi-schema'),
     # API DOC - end

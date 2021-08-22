@@ -48,16 +48,22 @@ class ArticlesQS(models.QuerySet):
         QuerySet
     """
 
+    def reads(self):
+        return self.filter(read=True)
+
     def unreads(self):
         return self.filter(read=False)
 
 
-class ArticlesUnreadManager(models.Manager):
+class ArticlesManager(models.Manager):
     """
-        Manager to get the unread articles
+        Manager to get the (un)read articles
     """
     def get_queryset(self):
         return ArticlesQS(self.model, using=self._db)  # Important!
+
+    def reads(self):
+        return self.get_queryset().reads()
 
     def unreads(self):
         return self.get_queryset().unreads()
@@ -77,7 +83,7 @@ class Articles(models.Model):
     read = models.BooleanField(default=False)
     read_later = models.BooleanField(default=False)
 
-    articles = ArticlesUnreadManager()
+    articles = ArticlesManager()
     objects = models.Manager()
 
     class Meta:

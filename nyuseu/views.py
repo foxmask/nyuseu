@@ -113,7 +113,42 @@ class ArticlesTinyListView(FoldersMixin, ListView):
     template_name = 'nyuseu/articles_list_board.html'
 
 
-class ArticlesListView(FoldersMixin, ListView):
+class ArticlesMixin:
+
+    paginate_by = 9
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        queryset = object_list if object_list is not None else self.object_list
+
+        feeds_title = ''
+        feeds_id = 0
+        if 'feeds' in self.kwargs:
+            queryset = queryset.filter(feeds=self.kwargs['feeds'])
+            feeds = Feeds.objects.filter(id=self.kwargs['feeds'])
+            feeds_title = feeds[0].title
+            feeds_id = feeds[0].id
+
+        page_size = self.paginate_by
+        context_object_name = self.get_context_object_name(queryset)
+
+        context = super(ArticlesMixin, self).get_context_data(**kwargs)
+
+        paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
+        context['paginator'] = paginator
+        context['page_obj'] = page
+        context['is_paginated'] = is_paginated
+        context['object_list'] = queryset
+        context['feeds_title'] = feeds_title
+        context['feeds_id'] = feeds_id
+
+        if context_object_name is not None:
+            context[context_object_name] = queryset
+        context.update(kwargs)
+
+        return context
+
+
+class ArticlesListView(FoldersMixin, ArticlesMixin, ListView):
     """
         Articles List
     """
@@ -125,32 +160,18 @@ class ArticlesListView(FoldersMixin, ListView):
     def get_queryset(self):
         return Articles.articles.unreads()
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        queryset = object_list if object_list is not None else self.object_list
 
-        feeds_title = ''
-        if 'feeds' in self.kwargs:
-            queryset = queryset.filter(feeds=self.kwargs['feeds'])
-            feeds = Feeds.objects.filter(id=self.kwargs['feeds'])
-            feeds_title = feeds[0].title
+class ArticlesReadListView(FoldersMixin, ArticlesMixin, ListView):
+    """
+        Articles List already 'Read'
+    """
 
-        page_size = self.paginate_by
-        context_object_name = self.get_context_object_name(queryset)
+    queryset = Articles.articles.reads()   # get the unread articles
+    paginate_by = 9
+    ordering = ['-date_created']
 
-        context = super(ArticlesListView, self).get_context_data(**kwargs)
-
-        paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
-        context['paginator'] = paginator
-        context['page_obj'] = page
-        context['is_paginated'] = is_paginated
-        context['object_list'] = queryset
-        context['feeds_title'] = feeds_title
-
-        if context_object_name is not None:
-            context[context_object_name] = queryset
-        context.update(kwargs)
-
-        return context
+    def get_queryset(self):
+        return Articles.articles.reads()
 
 
 class ArticlesDetailView(FoldersMixin, DetailView):

@@ -3,8 +3,8 @@
 <div class="col-xs-12 col-md-12 col-lg-12">
     <div class="row row-cols-6 row-cols-md-6">
     {% for feed in object_list %}
-        {% if forloop.counter <= 25 %}
-            {% for article in feed.articles_set.all %}
+        {% if forloop.counter <= 32 %}
+            {% for article in feed.articles_set.unreads %}
                 {% if forloop.first %}
         <div class="card-deck mb-3">
             <div class="card">

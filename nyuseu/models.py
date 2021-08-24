@@ -52,7 +52,7 @@ class ArticlesQS(models.QuerySet):
         return self.filter(read=True)
 
     def unreads(self):
-        return self.filter(read=False)
+        return self.filter(read=False).order_by('-date_created')
 
 
 class ArticlesManager(models.Manager):

@@ -173,6 +173,8 @@ def go():
             # last triggered execution
             if published is not None and now >= published >= date_grabbed:
                 content, image = set_content(entry)
+                if image == '':
+                    image = "<img class=\"card-img-top\" />"
                 # add an article
                 res = Articles(title=entry.title,
                                text=str(content),
@@ -189,6 +191,7 @@ def go():
                     source_feeds.save()
                     console.print(f'Feeds {my_feeds.title} : {entry.title}', style="blue")
                 except ValidationError as e:
+                    console.print(e, style="red")
                     console.print(f'Already known Feeds {my_feeds.title} : {entry.title}', style="magenta")
 
         if read_entries:

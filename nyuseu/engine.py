@@ -174,13 +174,14 @@ def go():
             if published is not None and now >= published >= date_grabbed:
                 content, image = set_content(entry)
                 # add an article
-                res = Articles.objects.create(title=entry.title,
-                                              text=str(content),
-                                              image=str(image),
-                                              feeds=my_feeds,
-                                              source_url=entry.link)
+                res = Articles(title=entry.title,
+                               text=str(content),
+                               image=str(image),
+                               feeds=my_feeds,
+                               source_url=entry.link)
                 try:
                     res.full_clean()  # to call the UniqueConstraint
+                    res.save()
                     created_entries += 1
                     now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DD HH:mm:ssZZ')
                     source_feeds = Feeds.objects.get(id=my_feeds.id)
@@ -188,7 +189,7 @@ def go():
                     source_feeds.save()
                     console.print(f'Feeds {my_feeds.title} : {entry.title}', style="blue")
                 except ValidationError as e:
-                    pass
+                    console.print(f'Already known Feeds {my_feeds.title} : {entry.title}', style="magenta")
 
         if read_entries:
             console.print(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}', style="magenta")

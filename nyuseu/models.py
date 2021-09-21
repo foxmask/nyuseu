@@ -4,6 +4,7 @@ Nyuseu :: News :: 뉴스
 """
 
 from django.db import models
+from django.db.models import UniqueConstraint
 import django.utils.timezone
 
 
@@ -83,6 +84,8 @@ class Articles(models.Model):
     read = models.BooleanField(default=False)
     read_later = models.BooleanField(default=False)
 
+    UniqueConstraint(fields=['feeds', 'title', ], name='unique_article')
+
     articles = ArticlesManager()
     objects = models.Manager()
 
@@ -91,3 +94,4 @@ class Articles(models.Model):
 
     def __str__(self):
         return self.title
+

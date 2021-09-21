@@ -9,11 +9,11 @@ from nyuseu.models import Articles, Feeds, Folders
 
 class ArticlesAdmin(admin.ModelAdmin):
     list_display = ('title', 'feeds', 'date_created', 'read')
-    search_fields = ['title']
+    search_fields = ['title', 'feeds__title']
 
 
 class FeedsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'folder', 'url', 'date_grabbed')
+    list_display = ('title', 'folder', 'url', 'date_grabbed', 'status')
     search_fields = ['title', 'url']
 
 

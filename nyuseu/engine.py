@@ -8,6 +8,7 @@ import arrow
 from bs4 import BeautifulSoup
 import datetime
 from django.conf import settings
+from django.core.exceptions import ValidationError
 import feedparser
 from feedparser_data import Rss
 import logging
@@ -178,13 +179,16 @@ def go():
                                               image=str(image),
                                               feeds=my_feeds,
                                               source_url=entry.link)
-                if res:
+                try:
+                    res.full_clean()  # to call the UniqueConstraint
                     created_entries += 1
                     now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DD HH:mm:ssZZ')
                     source_feeds = Feeds.objects.get(id=my_feeds.id)
                     source_feeds.date_grabbed = now
                     source_feeds.save()
                     console.print(f'Feeds {my_feeds.title} : {entry.title}', style="blue")
+                except ValidationError as e:
+                    pass
 
         if read_entries:
             console.print(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}', style="magenta")

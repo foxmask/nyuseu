@@ -84,13 +84,14 @@ class Articles(models.Model):
     read = models.BooleanField(default=False)
     read_later = models.BooleanField(default=False)
 
-    UniqueConstraint(fields=['feeds', 'title', ], name='unique_article')
-
     articles = ArticlesManager()
     objects = models.Manager()
 
     class Meta:
         verbose_name_plural = "Articles"
+        constraints = [
+            UniqueConstraint(fields=['feeds', 'title', ], name='unique_article')
+        ]
 
     def __str__(self):
         return self.title

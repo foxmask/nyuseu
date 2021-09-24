@@ -14,7 +14,7 @@ class ArticlesAdmin(admin.ModelAdmin):
 
 class FeedsAdmin(admin.ModelAdmin):
     list_display = ('title', 'folder', 'url', 'date_grabbed', 'status')
-    search_fields = ['title', 'url']
+    search_fields = ['title', 'url', 'folder__title']
 
 
 class FoldersAdmin(admin.ModelAdmin):

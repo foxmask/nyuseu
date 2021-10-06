@@ -108,7 +108,6 @@ class ArticlesTinyListView(FoldersMixin, ListView):
         Article List : Multiboard
     """
 
-    # model = Feeds
     queryset = Feeds.objects.filter(status=True)   # get the unread articles
     ordering = ['-date_grabbed']
     template_name = 'nyuseu/articles_list_board.html'
@@ -151,28 +150,20 @@ class ArticlesMixin:
 
 class ArticlesListView(FoldersMixin, ArticlesMixin, ListView):
     """
-        Articles List
+        List of 'Unread' Articles
     """
 
     queryset = Articles.articles.unreads()   # get the unread articles
-    paginate_by = 9
     ordering = ['-date_created']
-
-    def get_queryset(self):
-        return Articles.articles.unreads()
 
 
 class ArticlesReadListView(FoldersMixin, ArticlesMixin, ListView):
     """
-        Articles List already 'Read'
+        List of already 'Read' Articles
     """
 
-    queryset = Articles.articles.reads()   # get the unread articles
-    paginate_by = 9
+    queryset = Articles.articles.reads()   # get the read articles
     ordering = ['-date_created']
-
-    def get_queryset(self):
-        return Articles.articles.reads()
 
 
 class ArticlesDetailView(FoldersMixin, DetailView):

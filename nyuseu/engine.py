@@ -190,9 +190,8 @@ def go():
                     source_feeds.date_grabbed = now
                     source_feeds.save()
                     console.print(f'Feeds {my_feeds.title} : {entry.title}', style="blue")
-                except ValidationError as e:
-                    console.print(e, style="red")
-                    console.print(f'Already known Feeds {my_feeds.title} : {entry.title}', style="magenta")
+                except ValidationError:
+                    pass
 
         if read_entries:
             console.print(f'{my_feeds.title}: Entries created {created_entries} / Read {read_entries}', style="magenta")

@@ -16,7 +16,7 @@ def feed_marked_as_read(request, feeds_id):
         mark a complete feed as read
     """
     Articles.objects.filter(feeds__id=feeds_id).update(read=True)
-    messages.add_message(request, messages.INFO, 'Article marked as <strong>read</strong>')
+    messages.add_message(request, messages.INFO, 'All articles marked as <strong>read</strong>')
     return HttpResponseRedirect(reverse('feeds', args=[feeds_id]))
 
 
@@ -35,7 +35,7 @@ def feed_marked_as_unread(request, feeds_id):
         mark a complete feed as unread
     """
     Articles.objects.filter(feeds__id=feeds_id).update(read=False)
-    messages.add_message(request, messages.INFO, 'Articles marked as <strong>unread</strong>')
+    messages.add_message(request, messages.INFO, 'All articles marked as <strong>unread</strong>')
     return HttpResponseRedirect(reverse('feeds', args=[feeds_id]))
 
 

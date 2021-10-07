@@ -11,6 +11,15 @@ from django.views.generic import ListView, DetailView
 from nyuseu.models import Articles, Folders, Feeds
 
 
+def feed_marked_as_read(request, feeds_id):
+    """
+        mark a complete feed as read
+    """
+    Articles.objects.filter(feeds__id=feeds_id).update(read=True)
+    messages.add_message(request, messages.INFO, 'Article marked as <strong>read</strong>')
+    return HttpResponseRedirect(reverse('feeds', args=[feeds_id]))
+
+
 def marked_as_read(request, article_id):
     """
         mark an article as read
@@ -19,6 +28,15 @@ def marked_as_read(request, article_id):
     article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article marked as <strong>read</strong>')
     return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
+
+
+def feed_marked_as_unread(request, feeds_id):
+    """
+        mark a complete feed as unread
+    """
+    Articles.objects.filter(feeds__id=feeds_id).update(read=False)
+    messages.add_message(request, messages.INFO, 'Articles marked as <strong>unread</strong>')
+    return HttpResponseRedirect(reverse('feeds', args=[feeds_id]))
 
 
 def marked_as_unread(request, article_id):

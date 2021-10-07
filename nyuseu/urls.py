@@ -23,7 +23,8 @@ from django.contrib import admin
 from django.urls import include, path
 from nyuseu.views import (ArticlesListView, ArticlesReadListView, ArticlesDetailView, FoldersListView,
                           ArticlesTinyListView)
-from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread)
+from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread,
+                          feed_marked_as_unread, feed_marked_as_read)
 
 
 urlpatterns = [
@@ -31,6 +32,8 @@ urlpatterns = [
     path('folders/<int:folders>/', FoldersListView.as_view(), name="folders"),
     path('feeds/<int:feeds>/', ArticlesListView.as_view(), name="feeds"),
     path('feeds/<int:feeds>/read', ArticlesReadListView.as_view(), name="feeds_read"),
+    path('feeds/<int:feeds_id>/as_read', feed_marked_as_read, name="feed_marked_as_read"),
+    path('feeds/<int:feeds_id>/as_unread', feed_marked_as_unread, name="feed_marked_as_unread"),
     path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="articles"),
     path('articles/read_later/<int:article_id>/', read_later, name="read_later"),
     path('articles/unread_later/<int:article_id>/', unread_later, name="unread_later"),

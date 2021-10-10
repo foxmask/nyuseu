@@ -11,6 +11,16 @@ from django.views.generic import ListView, DetailView
 from nyuseu.models import Articles, Folders, Feeds
 
 
+def marked_as_read_later(request, article_id):
+    """
+        mark an article as to be read later
+    """
+    Articles.objects.filter(id=article_id).update(read_later=True)
+    article = Articles.objects.get(id=article_id)
+    messages.add_message(request, messages.INFO, 'Article marked as <strong>to be read later</strong>')
+    return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
+
+
 def feed_marked_as_read(request, feeds_id):
     """
         mark a complete feed as read
@@ -68,7 +78,7 @@ def unread_later(request, article_id):
     article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article <strong>removed</strong> '
                                                  'to the <i>read later</i> list')
-    return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
+    return HttpResponseRedirect(reverse('later'))
 
 
 class FoldersMixin:
@@ -145,6 +155,8 @@ class ArticlesMixin:
             feeds = Feeds.objects.filter(id=self.kwargs['feeds'])
             feeds_title = feeds[0].title
             feeds_id = feeds[0].id
+        else:
+            feeds_title = 'Articles to be read later'
 
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
@@ -164,6 +176,15 @@ class ArticlesMixin:
         context.update(kwargs)
 
         return context
+
+
+class ArticlesReadLaterListView(FoldersMixin, ArticlesMixin, ListView):
+    """
+        List of 'ReadLater' Articles
+    """
+
+    queryset = Articles.articles.read_later()   # get the unread articles
+    ordering = ['-date_created']
 
 
 class ArticlesListView(FoldersMixin, ArticlesMixin, ListView):

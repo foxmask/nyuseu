@@ -15,11 +15,14 @@
         <span style="font-size: 1em; color: Mediumslateblue;"><i class="fas fa-eye"></i></span> <a href="{% url 'feeds_read' feeds_id %}">Read</a>
     </div>
 
-    <div class="col-xs-2 col-md-2 col-lg-2 mt-3">
-        <span style="font-size: 1em; color: Dodgerblue;"><i class="fas fa-eye-slash"></i></span> <a href="{% url 'feed_marked_as_unread' feeds_id %}">Mark all as Unread</a>
+    <div class="col-xs-2 col-md-2 col-lg-1 mt-3">
+        <span style="font-size: 1em; color: Dodgerblue;"><i class="fas fa-eye-slash"></i></span> <a href="{% url 'feed_marked_as_unread' feeds_id %}">Mark all Unread</a>
     </div>
-    <div class="col-xs-2 col-md-2 col-lg-2 mt-3">
-        <span style="font-size: 1em; color: Mediumslateblue;"><i class="fas fa-eye"></i></span> <a href="{% url 'feed_marked_as_read' feeds_id %}">Mark all as Read</a>
+    <div class="col-xs-2 col-md-2 col-lg-1 mt-3">
+        <span style="font-size: 1em; color: Mediumslateblue;"><i class="fas fa-eye"></i></span> <a href="{% url 'feed_marked_as_read' feeds_id %}">Mark all Read</a>
+    </div>
+    <div class="col-xs-1 col-md-1 col-lg-1 mt-3">
+        <span style="font-size: 1em; color: Dodgerblue;"><i class="far fa-bookmark"></i></span> <a href="{% url 'later' %}">Read it later</a>
     </div>
         {% endif %}
     <div class="row row-cols-3 row-cols-md-3">

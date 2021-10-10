@@ -55,6 +55,9 @@ class ArticlesQS(models.QuerySet):
     def unreads(self):
         return self.filter(read=False).order_by('-date_created')
 
+    def read_later(self):
+        return self.filter(read_later=True).order_by('-date_created')
+
 
 class ArticlesManager(models.Manager):
     """
@@ -68,6 +71,9 @@ class ArticlesManager(models.Manager):
 
     def unreads(self):
         return self.get_queryset().unreads()
+
+    def read_later(self):
+        return self.get_queryset().read_later()
 
 
 class Articles(models.Model):

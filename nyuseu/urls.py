@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from nyuseu.views import (ArticlesListView, ArticlesReadListView, ArticlesDetailView, FoldersListView,
-                          ArticlesTinyListView)
+                          ArticlesTinyListView, ArticlesReadLaterListView)
 from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread,
                           feed_marked_as_unread, feed_marked_as_read)
 
@@ -35,6 +35,7 @@ urlpatterns = [
     path('feeds/<int:feeds_id>/as_read', feed_marked_as_read, name="feed_marked_as_read"),
     path('feeds/<int:feeds_id>/as_unread', feed_marked_as_unread, name="feed_marked_as_unread"),
     path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="articles"),
+    path('articles/later/', ArticlesReadLaterListView.as_view(), name="later"),
     path('articles/read_later/<int:article_id>/', read_later, name="read_later"),
     path('articles/unread_later/<int:article_id>/', unread_later, name="unread_later"),
     path('articles/marked_as_read/<int:article_id>/', marked_as_read, name="marked_as_read"),

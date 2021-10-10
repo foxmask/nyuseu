@@ -155,8 +155,6 @@ class ArticlesMixin:
             feeds = Feeds.objects.filter(id=self.kwargs['feeds'])
             feeds_title = feeds[0].title
             feeds_id = feeds[0].id
-        else:
-            feeds_title = 'Articles to be read later'
 
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)

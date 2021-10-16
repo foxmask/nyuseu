@@ -24,12 +24,18 @@ from django.urls import include, path
 from nyuseu.views import (ArticlesListView, ArticlesReadListView, ArticlesDetailView, FoldersListView,
                           ArticlesTinyListView, ArticlesReadLaterListView)
 from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread,
-                          feed_marked_as_unread, feed_marked_as_read)
+                          feed_marked_as_unread, feed_marked_as_read,
+                          folders_marked_as_read, folders_marked_as_unread)
 
 
 urlpatterns = [
     path('', ArticlesListView.as_view(), name="home"),
     path('folders/<int:folders>/', FoldersListView.as_view(), name="folders"),
+
+    path('folders/<int:folders>/read', ArticlesReadListView.as_view(), name="folders_read"),
+    path('folders/<int:folders>/as_read', folders_marked_as_read, name="folders_marked_as_read"),
+    path('folders/<int:folders>/as_unread', folders_marked_as_unread, name="folders_marked_as_unread"),
+
     path('feeds/<int:feeds>/', ArticlesListView.as_view(), name="feeds"),
     path('feeds/<int:feeds>/read', ArticlesReadListView.as_view(), name="feeds_read"),
     path('feeds/<int:feeds_id>/as_read', feed_marked_as_read, name="feed_marked_as_read"),

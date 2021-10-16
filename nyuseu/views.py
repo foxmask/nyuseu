@@ -30,6 +30,15 @@ def feed_marked_as_read(request, feeds_id):
     return HttpResponseRedirect(reverse('feeds', args=[feeds_id]))
 
 
+def folders_marked_as_read(request, folders):
+    """
+        mark a complete folder as read
+    """
+    Articles.objects.filter(feeds__folder__id=folders).update(read=True)
+    messages.add_message(request, messages.INFO, 'All articles of that folder marked as <strong>read</strong>')
+    return HttpResponseRedirect(reverse('folders', args=[folders]))
+
+
 def marked_as_read(request, article_id):
     """
         mark an article as read
@@ -57,6 +66,15 @@ def marked_as_unread(request, article_id):
     article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article marked as <strong>unread</strong>')
     return HttpResponseRedirect(reverse('feeds', args=[article.feeds.id]))
+
+
+def folders_marked_as_unread(request, folders):
+    """
+        mark a complete folder as read
+    """
+    Articles.objects.filter(feeds__folder__id=folders).update(read=False)
+    messages.add_message(request, messages.INFO, 'All articles of that folder marked as <strong>unread</strong>')
+    return HttpResponseRedirect(reverse('folders', args=[folders]))
 
 
 def read_later(request, article_id):
@@ -116,6 +134,14 @@ class FoldersListView(FoldersMixin, ListView):
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
 
+        folders_title = ''
+        folders_id = 0
+        if 'folders' in self.kwargs:
+            queryset = queryset.filter(feeds__folder__id=self.kwargs['folders'])
+            feeds = Feeds.objects.filter(folder=self.kwargs['folders'])
+            folders_title = feeds[0].folder.title
+            folders_id = feeds[0].folder.id
+
         context = super(FoldersListView, self).get_context_data(**kwargs)
 
         paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
@@ -123,6 +149,8 @@ class FoldersListView(FoldersMixin, ListView):
         context['page_obj'] = page
         context['is_paginated'] = is_paginated
         context['object_list'] = queryset
+        context['folders_title'] = folders_title
+        context['folders_id'] = folders_id
 
         if context_object_name is not None:
             context[context_object_name] = queryset
@@ -156,6 +184,14 @@ class ArticlesMixin:
             feeds_title = feeds[0].title
             feeds_id = feeds[0].id
 
+        folders_title = ''
+        folders_id = 0
+        if 'folders' in self.kwargs:
+            queryset = queryset.filter(feeds__folder__id=self.kwargs['folders'])
+            feeds = Feeds.objects.filter(folder=self.kwargs['folders'])
+            folders_title = feeds[0].folder.title
+            folders_id = feeds[0].folder.id
+
         page_size = self.paginate_by
         context_object_name = self.get_context_object_name(queryset)
 
@@ -168,6 +204,8 @@ class ArticlesMixin:
         context['object_list'] = queryset
         context['feeds_title'] = feeds_title
         context['feeds_id'] = feeds_id
+        context['folders_title'] = folders_title
+        context['folders_id'] = folders_id
 
         if context_object_name is not None:
             context[context_object_name] = queryset

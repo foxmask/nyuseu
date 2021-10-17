@@ -164,8 +164,7 @@ class ArticlesTinyListView(FoldersMixin, ListView):
         Article List : Multiboard
     """
 
-    queryset = Feeds.objects.filter(status=True)   # get the unread articles
-    ordering = ['-date_grabbed']
+    queryset = Feeds.objects.filter(status=True).order_by('title')  # get the unread articles
     template_name = 'nyuseu/articles_list_board.html'
 
 

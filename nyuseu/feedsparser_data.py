@@ -19,7 +19,7 @@ __all__ = ['Rss']
 
 class Rss:
 
-    USER_AGENT = f'FeedParserData/0.1.3 +https://framagit.org/annyong/nyuseu'
+    USER_AGENT = 'FeedParserData/0.1.3 +https://framagit.org/annyong/nyuseu'
 
     def get_data(self, url_to_parse, bypass_bozo=False, **kwargs) -> typing.Any:
         """

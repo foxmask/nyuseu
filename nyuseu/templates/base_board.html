@@ -24,13 +24,19 @@
                     <span class="menu-collapsed">뉴스 <i class="fas fa-seedling"></i> Nyuseu <i class="fas fa-seedling"></i> News</span>
                 </a>
             </div>
-            <div class="col-xs-4 col-md-4 col-lg-4">
+            {% if name %}
+            <div class="col-xs-2 col-md-2 col-lg-2">
+                <a class="switch-layout" href="{% url 'board_edit' name %}" title="edit my board">Edit my board</a>
+            </div>
+            {% endif %}
+            <div class="col-xs-2 col-md-2 col-lg-2">
                 <a class="switch-layout" href="{% url 'home' %}" title="switch to standard layout">Standard layout</a>
             </div>
         </div>
     </nav>
     <div class="container-fluid">
         <div class="row">
+        {% include "nyuseu/messages.html" %}
         <!-- container -->
         {% block content %}
         {% endblock %}

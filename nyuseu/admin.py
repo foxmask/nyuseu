@@ -4,7 +4,7 @@ Nyuseu :: News :: 뉴스
 """
 
 from django.contrib import admin
-from nyuseu.models import Articles, Feeds, Folders
+from nyuseu.models import Articles, Feeds, Folders, MyBoardFeeds, MyBoard
 
 
 class ArticlesAdmin(admin.ModelAdmin):
@@ -21,6 +21,19 @@ class FoldersAdmin(admin.ModelAdmin):
     ordering = ['title']
 
 
+class MyBoardAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+    search_fields = ['name']
+
+
+class MyBoardFeedsAdmin(admin.ModelAdmin):
+    list_display = ('board', 'feeds')
+    search_fields = ['feeds', 'boards__name']
+
+
 admin.site.register(Feeds, FeedsAdmin)
 admin.site.register(Folders, FoldersAdmin)
 admin.site.register(Articles, ArticlesAdmin)
+
+admin.site.register(MyBoard, MyBoardAdmin)
+admin.site.register(MyBoardFeeds, MyBoardFeedsAdmin)

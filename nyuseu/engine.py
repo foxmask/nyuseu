@@ -10,7 +10,7 @@ import datetime
 from django.conf import settings
 from django.core.exceptions import ValidationError
 import feedparser
-from feedparser_data import Rss
+from nyuseu.feedsparser_data import Rss
 import logging
 from nyuseu.models import Feeds, Articles
 from rich.console import Console

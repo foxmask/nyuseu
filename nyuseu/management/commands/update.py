@@ -16,8 +16,9 @@ console = Console()
 
 class Command(BaseCommand):
     """
-    command to grab any RSS Feeds and spread them to any available services
+    Command to grab any RSS Feeds and spread them to any available services
     """
+
     help = 'Update News into \'Nyuseu :: 뉴스 :: News\''
 
     def handle(self, *args, **options):

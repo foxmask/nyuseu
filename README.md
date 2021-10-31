@@ -9,7 +9,7 @@ News reader in `python 3.8` and `django 3.x`
 ### Requirements 
 
 * Python 3.8+
-* Django 3.2+
+* Django <= 3.3.0
 * pandoc
 
 ### Installation

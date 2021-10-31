@@ -24,6 +24,26 @@ class Folders(models.Model):
         return self.title
 
 
+class FeedsQS(models.QuerySet):
+    """
+        QuerySet
+    """
+
+    def multiboard(self):
+        return self.filter(multiboard=True)
+
+
+class FeedsManager(models.Manager):
+    """
+        Manager to get the feed for the multiboard
+    """
+    def get_queryset(self):
+        return FeedsQS(self.model, using=self._db)  # Important!
+
+    def multiboard(self):
+        return self.get_queryset().multiboard()
+
+
 class Feeds(models.Model):
     """
         Feeds Model
@@ -36,6 +56,10 @@ class Feeds(models.Model):
     date_modified = models.DateTimeField(default=django.utils.timezone.now)
     date_grabbed = models.DateTimeField(default=django.utils.timezone.now)
     status = models.BooleanField(default=True)
+    multiboard = models.BooleanField(default=True)
+
+    feeds = FeedsManager()
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = "Feeds"
@@ -101,3 +125,21 @@ class Articles(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class MyBoard(models.Model):
+    """
+        MyBoard Model
+    """
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class MyBoardFeeds(models.Model):
+    """
+        MyBoard Model
+    """
+    board = models.ForeignKey(MyBoard, on_delete=models.CASCADE)
+    feeds = models.ForeignKey(Feeds, on_delete=models.CASCADE)

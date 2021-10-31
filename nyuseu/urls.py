@@ -26,7 +26,7 @@ from nyuseu.views import (ArticlesListView, ArticlesReadListView, ArticlesDetail
 from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread,
                           feed_marked_as_unread, feed_marked_as_read,
                           folders_marked_as_read, folders_marked_as_unread)
-
+from nyuseu.views_board import MyBoardCreateView, MyBoardListView, MyBoardUpdateView
 
 urlpatterns = [
     path('', ArticlesListView.as_view(), name="home"),
@@ -51,7 +51,11 @@ urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
     # API
-    path('api/', include('nyuseu.api.urls')),
+    # path('api/', include('nyuseu.api.urls')),
+
+    path('board_create', MyBoardCreateView.as_view(), name="board_create"),
+    path('board_edit/<slug:slug>', MyBoardUpdateView.as_view(), name="board_edit"),
+    path('my_board/<slug:name>', MyBoardListView.as_view(), name="board"),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

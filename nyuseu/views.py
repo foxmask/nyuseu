@@ -93,7 +93,6 @@ def unread_later(request, article_id):
         unmark an article as to read it later
     """
     Articles.objects.filter(id=article_id).update(read_later=False, read=False)
-    article = Articles.objects.get(id=article_id)
     messages.add_message(request, messages.INFO, 'Article <strong>removed</strong> '
                                                  'to the <i>read later</i> list')
     return HttpResponseRedirect(reverse('later'))

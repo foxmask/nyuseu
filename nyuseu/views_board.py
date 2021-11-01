@@ -27,15 +27,13 @@ class MyBoardFormsSetValid:
         else:
             context['myboardfeeds_form'] = MyBoardFeedsFormset(instance=self.object)
 
+        if 'slug' in self.kwargs:
+            context['name'] = self.kwargs['slug']
+
         return context
 
-
-class MyBoardCreateView(MyBoardFormsSetValid, CreateView):
-    """
-        to Create Board
-    """
     def form_valid(self, form):
-        print("pas encore")
+
         formset = MyBoardFeedsFormset((self.request.POST or None), instance=self.object)
 
         if formset.is_valid():
@@ -45,6 +43,8 @@ class MyBoardCreateView(MyBoardFormsSetValid, CreateView):
             formset.instance = self.object
             formset.save()
 
+            messages.add_message(self.request, messages.INFO, f'Multiboard {name} saved')
+
             return HttpResponseRedirect(reverse('board', args=[name]))
         else:
 
@@ -52,7 +52,17 @@ class MyBoardCreateView(MyBoardFormsSetValid, CreateView):
                          'formset': formset,
                          "err": formset.errors}
 
+            if 'slug' in self.kwargs:
+                variables["name"] = self.kwargs['slug']
+
             return render(self.request, 'nyuseu/myboard_form.html', variables)
+
+
+class MyBoardCreateView(MyBoardFormsSetValid, CreateView):
+    """
+        to Create Board
+    """
+    pass
 
 
 class MyBoardUpdateView(MyBoardFormsSetValid, UpdateView):
@@ -61,36 +71,8 @@ class MyBoardUpdateView(MyBoardFormsSetValid, UpdateView):
     """
     slug_field = 'name'
 
-    def form_valid(self, form):
-
-        formset = MyBoardFeedsFormset((self.request.POST or None), instance=self.object)
-
-        if formset.is_valid():
-
-            name = form.cleaned_data.get("name")
-            self.object = form.save()
-            formset.instance = self.object
-            formset.save()
-
-            messages.add_message(self.request, messages.INFO, f'Multiboard {name} modified')
-
-            return HttpResponseRedirect(reverse('board', args=[name]))
-        else:
-
-            variables = {'form': form,
-                         'formset': formset,
-                         "name": self.kwargs['slug'],
-                         "err": formset.errors}
-
-            return render(self.request, 'nyuseu/myboard_form.html', variables)
-
     def get_success_url(self):
         return reverse('board', args=[self.kwargs['slug']])
-
-    def get_context_data(self, **kw):
-        context = super(MyBoardUpdateView, self).get_context_data(**kw)
-        context['name'] = self.kwargs['slug']
-        return context
 
 
 class MyBoardListView(FoldersMixin, ListView):

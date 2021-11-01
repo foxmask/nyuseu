@@ -15,10 +15,10 @@
         <div class="card-deck mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="{{ article.source_url }}" title="Go to read the full article">{{ article.title }}</a></h5>
+                    <h5 class="card-title"><a target="_blank" href="{{ article.source_url }}" title="Go to read the full article">{{ article.title }}</a></h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}
-                        | <a href="{% url 'feeds' board.feeds.id %}" title="List all articles from {{ board.feeds.title }}"><span class="badge bg-success">{{ board.feeds.title }}</span></a>
-                        | <a href="{% url 'folders' board.feeds.folder.id %}" title="List all articles from {{ board.feeds.folder.title }}"><span class="badge bg-secondary">{{ board.feeds.folder.title }}</span></a>
+                        | <span class="badge bg-success">{{ board.feeds.title }}</span>
+                        | <span class="badge bg-secondary">{{ board.feeds.folder.title }}</span>
                     </h6>
                 </div>
 

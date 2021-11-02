@@ -29,14 +29,16 @@ class Rss:
         :return: Feeds if Feeds are well formed
         """
         data = {'bozo': 0, 'entries': []}
-        with httpx.Client(timeout=30) as client:
-            feed = client.get(url_to_parse)
-            logger.debug(url_to_parse)
-            data = feedparser.parse(feed.text, agent=self.USER_AGENT)
-            # if the feeds is not well formed, return no data at all
-            if bypass_bozo is False and data.bozo == 1:
-                data.entries = ''
-                log = f"{url_to_parse}: is not valid. Make a try by providing 'True' to 'Bypass Bozo' parameter"
-                logger.info(log)
-
+        try:
+            with httpx.Client(timeout=30) as client:
+                feed = client.get(url_to_parse)
+                logger.debug(url_to_parse)
+                data = feedparser.parse(feed.text, agent=self.USER_AGENT)
+                # if the feeds is not well formed, return no data at all
+                if bypass_bozo is False and data.bozo == 1:
+                    data.entries = ''
+                    log = f"{url_to_parse}: is not valid. Make a try by providing 'True' to 'Bypass Bozo' parameter"
+                    logger.info(log)
+        except httpx.ConnectError as e:
+            logger.error(e)
         return data

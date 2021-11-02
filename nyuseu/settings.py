@@ -149,3 +149,5 @@ if 'debug_toolbar' in INSTALLED_APPS:
         '127.0.0.1',
         # ...
     ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

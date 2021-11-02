@@ -7,7 +7,7 @@
     <div class="row row-cols-6 row-cols-md-6">
     {% for feed in object_list %}
         {% if forloop.counter <= 32 %}
-            {% for article in feed.articles_set.unreads %}
+            {% for article in feed.articles_set.all %}
                 {% if forloop.first %}
         <div class="card-deck mb-3">
             <div class="card">

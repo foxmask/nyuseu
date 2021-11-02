@@ -77,10 +77,10 @@ class ArticlesQS(models.QuerySet):
         return self.filter(read=True)
 
     def unreads(self):
-        return self.filter(read=False).order_by('-date_created')
+        return self.filter(read=False)
 
     def read_later(self):
-        return self.filter(read_later=True).order_by('-date_created')
+        return self.filter(read_later=True)
 
 
 class ArticlesManager(models.Manager):
@@ -122,6 +122,7 @@ class Articles(models.Model):
         constraints = [
             UniqueConstraint(fields=['feeds', 'title', ], name='unique_article')
         ]
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.title

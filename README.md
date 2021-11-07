@@ -2,7 +2,7 @@
 
 News reader in `python 3.8` and `django 3.x`
 
-![Main page](https://gitlab.com/annyong/nyuseu/-/raw/master/nyuseu/doc/screenshot.png)
+![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/screenshot.png)
 
 ## :package: Installation
 
@@ -110,8 +110,7 @@ enter the following command
 python opml_dump.py /path/to/the/file.opml
 ```
 eg
-```commandline
-$ ./manage.py opml_dump foobar.opml
+```commandlineonbar.opml
 Nyuseu :: 뉴스 :: News - Feeds Exported in file foobar.opml
 ```
 
@@ -124,3 +123,13 @@ in your crontab add this for example
 
 
 (Image credits to [Emojipedia](https://emojipedia.org/))
+
+## Board creation
+
+![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/create_1.png)
+
+![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/create_2.png)
+
+## accessing to boards
+
+![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/my_boards.png)

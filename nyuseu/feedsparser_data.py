@@ -8,6 +8,7 @@ from logging import getLogger
 import typing
 # external lib
 import feedparser
+from feedparser.util import FeedParserDict
 import httpx
 
 # create logger
@@ -28,7 +29,7 @@ class Rss:
         :boolean bypass_bozo : for not well formed URL, do we ignore or not that URL
         :return: Feeds if Feeds are well formed
         """
-        data = {'bozo': 0, 'entries': []}
+        data = FeedParserDict()
         try:
             with httpx.Client(timeout=30) as client:
                 feed = client.get(url_to_parse)

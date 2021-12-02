@@ -3,9 +3,9 @@ beautifulsoup4==4.10.0
 Django<=3.3.0
 django-environ==0.8.1
 feedparser==6.0.8
-httpx==0.20.0
+httpx==0.21.1
 opml==0.5
 pypandoc==1.6.4
-rich==10.12.0
+rich==10.15.2
 djangorestframework==3.12.4
 django-fortune==1.1.1

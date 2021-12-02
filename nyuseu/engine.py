@@ -31,15 +31,20 @@ def _get_published(entry) -> datetime:
     :return: datetime
     """
     published = None
+
     if hasattr(entry, 'published_parsed'):
         if entry.published_parsed is not None:
             published = datetime.datetime.utcfromtimestamp(time.mktime(entry.published_parsed))
+            published = arrow.get(published).to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
     elif hasattr(entry, 'created_parsed'):
         if entry.created_parsed is not None:
             published = datetime.datetime.utcfromtimestamp(time.mktime(entry.created_parsed))
+            published = arrow.get(published).to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
     elif hasattr(entry, 'updated_parsed'):
         if entry.updated_parsed is not None:
             published = datetime.datetime.utcfromtimestamp(time.mktime(entry.updated_parsed))
+            published = arrow.get(published).to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
+
     return published
 
 
@@ -184,17 +189,22 @@ def go():
         get the data of each RSS Feeds, then create `Articles`
     """
     console.print('Nyuseu Engine - 뉴스 - Feeds Reader - in progress', style="green")
+    now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
+
     feeds = Feeds.objects.all()
     for my_feed in feeds:
-        rss = Rss()
         console.print(f"Feeds {my_feed.url}", style="magenta")
+
+        rss = Rss()
         feeds_data = rss.get_data(**{'url_to_parse': my_feed.url, 'bypass_bozo': settings.BYPASS_BOZO})
+
         if hasattr(feeds_data, 'entries') is False:
             continue
-        now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
+
         date_grabbed = arrow.get(my_feed.date_grabbed).format('YYYY-MM-DDTHH:mm:ssZZ')
         read_entries = 0
         created_entries = 0
+
         for entry in feeds_data.entries:
             # it may happened that feeds does not provide title ... yes !
             entry['title'] = entry.link if 'title' not in entry else entry['title']
@@ -202,8 +212,6 @@ def go():
             # entry.*_parsed may be None when the date in a RSS Feed is invalid
             # so will have the "now" date as default
             published = _get_published(entry)
-            if published:
-                published = arrow.get(published).to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
             # last triggered execution
             if published is not None and now >= published >= date_grabbed:
                 created_entries = add_article(my_feed, entry, now, created_entries)

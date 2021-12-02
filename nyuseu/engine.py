@@ -156,6 +156,8 @@ def go():
         rss = Rss()
         console.print(f"Feeds {my_feeds.url}", style="magenta")
         feeds = rss.get_data(**{'url_to_parse': my_feeds.url, 'bypass_bozo': settings.BYPASS_BOZO})
+        if hasattr(feeds, 'entries') is False:
+            continue
         now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
         date_grabbed = arrow.get(my_feeds.date_grabbed).format('YYYY-MM-DDTHH:mm:ssZZ')
         read_entries = 0

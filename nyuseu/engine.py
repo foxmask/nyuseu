@@ -206,7 +206,7 @@ def go():
                 published = arrow.get(published).to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
             # last triggered execution
             if published is not None and now >= published >= date_grabbed:
-                add_article(my_feed, entry, now, created_entries)
+                created_entries = add_article(my_feed, entry, now, created_entries)
 
         if read_entries:
             console.print(f'{my_feed.title}: Entries created {created_entries} / Read {read_entries}', style="magenta")

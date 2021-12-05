@@ -7,7 +7,7 @@ from django.db.models import Count, Case, When, IntegerField
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
-
+from newspaper import Article
 from nyuseu.models import Articles, Folders, Feeds
 
 
@@ -96,6 +96,18 @@ def unread_later(request, article_id):
     messages.add_message(request, messages.INFO, 'Article <strong>removed</strong> '
                                                  'to the <i>read later</i> list')
     return HttpResponseRedirect(reverse('later'))
+
+
+def article_reload(request, article_id):
+    article = Articles.objects.get(id=article_id)
+    r = Article(article.source_url, keep_article_html=True)
+    r.download()
+    r.parse()
+    if r.article_html:
+        new_image = f"<img src=\"{r.top_image}\" class=\"card-img-top\" />"
+        Articles.objects.filter(id=article_id).update(text=r.article_html, image=new_image)
+    messages.add_message(request, messages.INFO, 'Article <strong>reloaded</strong>')
+    return HttpResponseRedirect(reverse('article', args=[article_id]))
 
 
 class FoldersMixin:

@@ -10,5 +10,6 @@
                     <a href="{% url 'marked_as_read' id %}" title="Set this article as read" class="text-muted card-link">
                         <span style="font-size: 1em; color: Dodgerblue;"><i class="fas fa-eye-slash"></i></span>{% endif %}</a>
                     <a href="#" title="Share this article" class="text-muted card-link"><span style="font-size: 1em; color: Dodgerblue;"><i class="fas fa-share-alt"></i></span></a>
+                    <a href="{% url 'article_reload' id %}" title="Load full article" class="text-muted card-link"><span style="font-size: 1em; color: Dodgerblue;"><i class="fas fa-redo"></i></span></a>
                     <a href="{{ source_url }}" target="_blank" title="Open the original website" class="text-muted card-link"><span style="font-size: 1em; color: Dodgerblue;"><i class="fas fa-external-link-alt"></i></span></a>
                 </div>

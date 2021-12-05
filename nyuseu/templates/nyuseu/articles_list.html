@@ -21,9 +21,9 @@
     {% for article in object_list %}
         <div class="card-deck mb-4">
             <div class="card">
-                <a href="{% url 'articles' article.id %}" title="View the complete article">{{ article.image |safe }}</a>
+                <a href="{% url 'article' article.id %}" title="View the complete article">{{ article.image |safe }}</a>
                 <div class="card-body {% if article.read %} text-muted{% endif %}">
-                    <h5 class="card-title"><a href="{% url 'articles' article.id %}" title="View the complete article {{ article.title }}">{{ article.title }}</a></h5>
+                    <h5 class="card-title"><a href="{% url 'article' article.id %}" title="View the complete article {{ article.title }}">{{ article.title }}</a></h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ article.date_created }}
                         | <a href="{% url 'feeds' article.feeds.id %}" title="List all articles from {{ article.feeds.title }}"><span class="badge bg-success">{{ article.feeds.title }}</span></a>
                         | <a href="{% url 'folders' article.feeds.folder.id %}" title="List all articles from {{ article.feeds.folder.title }}"><span class="badge bg-secondary">{{ article.feeds.folder.title }}</span></a>

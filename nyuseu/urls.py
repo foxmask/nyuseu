@@ -25,7 +25,8 @@ from nyuseu.views import (ArticlesListView, ArticlesReadListView, ArticlesDetail
                           ArticlesTinyListView, ArticlesReadLaterListView)
 from nyuseu.views import (read_later, unread_later, marked_as_read, marked_as_unread,
                           feed_marked_as_unread, feed_marked_as_read,
-                          folders_marked_as_read, folders_marked_as_unread)
+                          folders_marked_as_read, folders_marked_as_unread,
+                          article_reload)
 from nyuseu.views_board import MyBoardCreateView, MyBoardListView, MyBoardUpdateView
 
 urlpatterns = [
@@ -40,12 +41,13 @@ urlpatterns = [
     path('feeds/<int:feeds>/read', ArticlesReadListView.as_view(), name="feeds_read"),
     path('feeds/<int:feeds_id>/as_read', feed_marked_as_read, name="feed_marked_as_read"),
     path('feeds/<int:feeds_id>/as_unread', feed_marked_as_unread, name="feed_marked_as_unread"),
-    path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="articles"),
+    path('articles/<int:pk>/', ArticlesDetailView.as_view(), name="article"),
     path('articles/later/', ArticlesReadLaterListView.as_view(), name="later"),
     path('articles/read_later/<int:article_id>/', read_later, name="read_later"),
     path('articles/unread_later/<int:article_id>/', unread_later, name="unread_later"),
     path('articles/marked_as_read/<int:article_id>/', marked_as_read, name="marked_as_read"),
     path('articles/marked_as_unread/<int:article_id>/', marked_as_unread, name="marked_as_unread"),
+    path('articles/reload/<int:article_id>/', article_reload, name="article_reload"),
     # multiboard
     path('mb/', ArticlesTinyListView.as_view(), name="multiboards"),
     # admin

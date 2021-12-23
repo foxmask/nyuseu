@@ -1,6 +1,7 @@
 # Nyuseu :: News :: 뉴스
 
-News reader in `python 3.8` and `django 3.x`
+News reader in [Python](https://www.python.org) and [Django](https://www.djangoproject.com/)
+
 
 ![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/screenshot.png)
 
@@ -8,32 +9,43 @@ News reader in `python 3.8` and `django 3.x`
 
 ### Requirements 
 
-* Python 3.8+
-* Django <= 3.3.0
+* Python from 3.8 to 3.10
+* Django from 3.x to 4.0
 * pandoc
 
 ### Installation
+
 pandoc
+
 ```bash
 sudo apt install pandoc
 ```
 
 create a virtualenv
-```
+
+```bash
 python3 -m venv nyuseu
 cd nyuseu
 source bin/activate
 ```
+
 install the project
-```
+
+```bash
 pip install nyuseu
 ```
+
+
 ##  :wrench: Settings
-copy the sample config file 
-```
+
+copy the sample config file
+
+```bash
 cp env.sample .env
 ```
+
 and set the following values
+
 ```ini
 DEBUG=True   # or False
 DB_ENGINE='django.db.backends.sqlite3'
@@ -55,8 +67,10 @@ BYPASS_BOZO=True
 ```
 
 ## :dvd: Database
+
 setup the database
-```
+
+```bash
 cd nyuseu
 python manage.py createsuperuser
 python manage.py migrate
@@ -64,9 +78,11 @@ python manage.py migrate
 
 ## :mega: Running the Server
 ### start the project
-```
+
+```bash
 python manage.py runserver localhost:8001
 ```
+
 then, access the project with your browser http://127.0.0.1:8001/
 
 ### Manage your data 
@@ -74,12 +90,16 @@ then, access the project with your browser http://127.0.0.1:8001/
 go to http://127.0.0.1:8001/admin and enter the login/pass of the created `superuser`
 
 ### :eyes: Importing OPML file
+
 enter the following command
-```commandline
+
+```bash
 python opml_load.py /path/to/the/file.opml
 ```
+
 eg
-```commandline
+
+```bash
 python manage.py opml_load ~/Download/feedly-e2343e92-9e71-4345-b045-cef7e1736cd2-2020-05-14.opml 
 Nyuseu Server - 뉴스 - Feeds Reader Server - Starlette powered
 Humor Le blog d'un odieux connard
@@ -103,24 +123,27 @@ Gaming jeuxvideo.com - PlayStation 4
 Nyuseu Server - 뉴스 - Feeds Loaded
 ```
 
-
 ### :eyes: Exporting OPML file
+
 enter the following command
-```commandline
+
+```bash
 python opml_dump.py /path/to/the/file.opml
 ```
+
 eg
-```commandlineonbar.opml
+
+```bash
 Nyuseu :: 뉴스 :: News - Feeds Exported in file foobar.opml
 ```
 
 ### get the update of your news 
+
 in your crontab add this for example
 
-```
+```bash
 */59 * * * * cd ~/Projects/nyuseu/ && . bin/activate && cd nyuseu && ./manage.py nyuseu_update
 ``` 
-
 
 (Image credits to [Emojipedia](https://emojipedia.org/))
 

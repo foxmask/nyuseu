@@ -1,12 +1,12 @@
 arrow==1.2.1
 beautifulsoup4==4.10.0
-Django<=3.3.0
+Django<=4.1.0
 django-environ==0.8.1
 feedparser==6.0.8
 httpx==0.21.1
 newspaper3k==0.2.8
 opml==0.5
 pypandoc==1.6.4
-rich==10.15.2
-djangorestframework==3.12.4
+rich==10.16.1
+djangorestframework==3.13.1
 django-fortune==1.1.1

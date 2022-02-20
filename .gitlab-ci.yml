@@ -40,7 +40,7 @@ deploy:
   only:
   - tags
 stages:
-- test
+  - test
 sast:
   variables:
     SAST_EXCLUDED_ANALYZERS: bandit, brakeman, eslint, flawfinder, gosec, kubesec,

@@ -191,7 +191,7 @@ def go():
     console.print('Nyuseu Engine - 뉴스 - Feeds Reader - in progress', style="green")
     now = arrow.utcnow().to(settings.TIME_ZONE).format('YYYY-MM-DDTHH:mm:ssZZ')
 
-    feeds = Feeds.objects.all()
+    feeds = Feeds.objects.filter(status=True)
     for my_feed in feeds:
         console.print(f"Feeds {my_feed.url}", style="magenta")
 

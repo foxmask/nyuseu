@@ -7,7 +7,7 @@ import nyuseu
 import os
 
 
-class NyuseuSettingsTestCase(TestCase):
+class NyuseuVersionTestCase(TestCase):
 
     """
       check VERSION.txt

@@ -20,7 +20,6 @@ class NyuseuSettingsTestCase(TestCase):
         self.assertIs(type(settings.BYPASS_BOZO), bool)
         self.assertIs(type(settings.LANGUAGE_CODE), str)
         self.assertIs(type(settings.TIME_ZONE), str)
-        self.assertIs(type(settings.USE_L10N), bool)
         self.assertIs(type(settings.USE_TZ), bool)
         self.assertIs(type(settings.ALLOWED_HOSTS), list)
         self.assertIs(type(settings.SECRET_KEY), str)

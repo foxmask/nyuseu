@@ -3,7 +3,7 @@
 Nyuseu :: News :: 뉴스
 """
 from django.test import TestCase
-from nyuseu.models import Articles, Feeds, Folders
+from nyuseu.models import Articles, Feeds, Folders, MyBoard
 
 
 class FoldersTest(TestCase):
@@ -70,3 +70,19 @@ class ArticlesTest(TestCase):
         inst = self.create_articles()
         self.assertTrue(isinstance(inst, Articles))
         self.assertEqual(inst.__str__(), inst.title)
+
+
+class MyBoardTest(TestCase):
+
+    """
+        MyBoard Model
+    """
+
+    def create_board(self):
+
+        return MyBoard.objects.create(name="Board1")
+
+    def test_board(self):
+        inst = self.create_board()
+        self.assertTrue(isinstance(inst, MyBoard))
+        self.assertEqual(inst.__str__(), inst.name)

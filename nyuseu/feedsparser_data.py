@@ -32,8 +32,8 @@ class Rss:
         data = FeedParserDict()
         try:
             with httpx.Client(timeout=30) as client:
-                feed = client.get(url_to_parse)
                 logger.debug(url_to_parse)
+                feed = client.get(url_to_parse)
                 data = feedparser.parse(feed.text, agent=self.USER_AGENT)
                 # if the feeds is not well formed, return no data at all
                 if bypass_bozo is False and data.bozo == 1:

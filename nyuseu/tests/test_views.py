@@ -13,7 +13,19 @@ from nyuseu.views import marked_as_read, marked_as_unread, read_later, unread_la
 class FoldersListViewTestCase(TestCase):
 
     def create_folder(self):
-        return Folders.objects.create(title="FolderX")
+        folder = Folders.objects.create(title="FolderX")
+        title = 'Le Free de la passion'
+        url = 'https://foxmask.github.io/feeds/all.atom.xml'
+        status = True
+
+        feeds = Feeds.objects.create(folder=folder, title=title, url=url, status=status)
+        title = 'TEST TITLE'
+        image = ''
+        text = 'TEST'
+        read = False
+        Articles.objects.create(feeds=feeds, title=title, image=image, text=text, read=read)
+
+        return folder
 
     def setUp(self):
         super(FoldersListViewTestCase, self).setUp()
@@ -24,12 +36,12 @@ class FoldersListViewTestCase(TestCase):
         template = "nyuseu/articles_list.html"
         # Setup request and view.
         request = RequestFactory().get(f'/folders/{folder.id}')
-        view = FoldersListView.as_view(template_name=template)
+        view = FoldersListView.as_view(template_name=template)(request, **{'folders': folder.id})
         # Run.
-        response = view(request)
+        # response = view(request)
         # Check.
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.template_name[0], "nyuseu/articles_list.html")
+        self.assertEqual(view.status_code, 200)
+        self.assertEqual(view.template_name[0], "nyuseu/articles_list.html")
 
 
 class ArticlesListViewTestCase(TestCase):
@@ -63,6 +75,19 @@ class ArticlesListViewTestCase(TestCase):
         # Check.
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.template_name[0], "nyuseu/articles_list.html")
+
+    def test_articles_list_from_folder(self):
+        feeds = self.create_stuff()
+        template = "nyuseu/articles_list.html"
+        # Setup request and view.
+        request = RequestFactory().get(f'/folders/{feeds.folder.id}/')
+        kwargs = {'folders': feeds.folder.id}
+        view = ArticlesListView.as_view(template_name=template)(request, **kwargs)
+        # Run.
+        # response = view(request)
+        # Check.
+        self.assertEqual(view.status_code, 200)
+        self.assertEqual(view.template_name[0], "nyuseu/articles_list.html")
 
     def test_articles_list_from_feeds(self):
         feeds = self.create_stuff()

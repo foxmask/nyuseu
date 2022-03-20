@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from newspaper import Article
 from nyuseu.models import Articles, Folders, Feeds
+from simple_search import search_form_factory
 
 
 def marked_as_read_later(request, article_id):
@@ -208,6 +209,13 @@ class ArticlesMixin:
 
         context = super(ArticlesMixin, self).get_context_data(**kwargs)
 
+        SearchForm = search_form_factory(queryset, ['title',])
+
+        search_form = SearchForm(self.request.GET or {})
+        if self.request.GET.get("q"):
+            if search_form.is_valid():
+                queryset = search_form.get_queryset()
+
         paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, page_size)
         context['paginator'] = paginator
         context['page_obj'] = page
@@ -217,6 +225,8 @@ class ArticlesMixin:
         context['feeds_id'] = feeds_id
         context['folders_title'] = folders_title
         context['folders_id'] = folders_id
+        context['form_search'] = SearchForm
+        context['q'] = self.request.GET.get('q')
 
         if context_object_name is not None:
             context[context_object_name] = queryset

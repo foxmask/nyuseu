@@ -22,9 +22,9 @@
                     <span class="menu-collapsed">뉴스 <i class="fas fa-seedling"></i> Nyuseu <i class="fas fa-seedling"></i> News</span>
                 </a>
             </div>
-            <div class="col-xs-4 col-md-4 col-lg-4">
-                <a class="switch-layout" href="{% url 'multiboards' %}" title="switch to a Multiboard view">Multiboard Layout</a>
-            </div>
+           {% if form_search %}
+           {% include 'search.html' %}              &nbsp;
+           {% endif %}
         </div>
     </nav>
     <div class="container-fluid">

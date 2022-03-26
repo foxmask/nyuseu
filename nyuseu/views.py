@@ -209,7 +209,7 @@ class ArticlesMixin:
 
         context = super(ArticlesMixin, self).get_context_data(**kwargs)
 
-        SearchForm = search_form_factory(queryset, ['title',])
+        SearchForm = search_form_factory(queryset, ['title', ])
 
         search_form = SearchForm(self.request.GET or {})
         if self.request.GET.get("q"):

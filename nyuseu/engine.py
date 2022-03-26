@@ -181,7 +181,7 @@ def add_article(my_feed, entry, now, created_entries):
         console.print(f'Feeds {my_feed.title} : {entry.title}', style="blue")
         return created_entries
     except ValidationError:
-        pass
+        return 0
 
 
 def go():
@@ -206,7 +206,7 @@ def go():
         created_entries = 0
 
         for entry in feeds_data.entries:
-            # it may happened that feeds does not provide title ... yes !
+            # it may happen that feeds does not provide title ... yes !
             entry['title'] = entry.link if 'title' not in entry else entry['title']
             read_entries += 1
             # entry.*_parsed may be None when the date in a RSS Feed is invalid

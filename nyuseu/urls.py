@@ -48,7 +48,7 @@ urlpatterns = [
     path('articles/marked_as_read/<int:article_id>/', marked_as_read, name="marked_as_read"),
     path('articles/marked_as_unread/<int:article_id>/', marked_as_unread, name="marked_as_unread"),
     path('articles/reload/<int:article_id>/', article_reload, name="article_reload"),
-    # multiboard
+
     path('mb/', ArticlesTinyListView.as_view(), name="multiboards"),
     # admin
     path('admin/', admin.site.urls),

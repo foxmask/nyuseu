@@ -10,7 +10,7 @@ News reader in [Python](https://www.python.org) and [Django](https://www.djangop
 ### Requirements 
 
 * Python from 3.8 to 3.10
-* Django from 3.x to 4.0
+* Django from 4.0 to 4.1
 * pandoc
 
 ### Installation

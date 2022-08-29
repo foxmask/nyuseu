@@ -1,9 +1,11 @@
 -r requirements.txt
+coverage
 django-debug-toolbar
+flake8
 pytest-django
 pytest
-flake8
-coverage
+pipdeptree
+semgrep
 tox
 twine
 wheel

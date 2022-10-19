@@ -3,14 +3,14 @@
 News reader in [Python](https://www.python.org) and [Django](https://www.djangoproject.com/)
 
 
-![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/screenshot.png)
+![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/screenshot.png)
 
 ## :package: Installation
 
 ### Requirements 
 
 * Python from 3.8 to 3.10
-* Django from 4.0 to 4.1
+  * Django from 4.0 to 4.1
 * pandoc
 
 ### Installation
@@ -149,10 +149,10 @@ in your crontab add this for example
 
 ## Board creation
 
-![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/create_1.png)
+![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/create_1.png)
 
-![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/create_2.png)
+![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/create_2.png)
 
 ## accessing to boards
 
-![Main page](https://framagit.org/annyong/nyuseu/-/raw/master/nyuseu/doc/my_boards.png)
+![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/my_boards.png)

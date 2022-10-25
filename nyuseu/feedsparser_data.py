@@ -41,14 +41,7 @@ class Rss:
                     data.entries = ''
                     log = f"{url_to_parse}: is not valid. Make a try by providing 'True' to 'Bypass Bozo' parameter"
                     logger.info(log)
-            except httpcore.ConnectTimeout as e:
-                logger.error(e)
-            except httpcore.ReadTimeout as e:
-                logger.error(e)
-            except httpx.ConnectTimeout as e:
-                logger.error(e)
-            except httpx.ConnectError as e:
-                logger.error(e)
-            except httpx.ReadTimeout as e:
+            except (httpcore.ConnectTimeout, httpcore.ReadTimeout, httpcore.ReadError,
+                    httpx.ConnectTimeout, httpx.ConnectError, httpx.ReadTimeout) as e:
                 logger.error(e)
         return data

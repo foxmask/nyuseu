@@ -9,9 +9,7 @@ import typing
 # external lib
 import feedparser
 from feedparser.util import FeedParserDict
-import httpx
-import httpcore
-
+import requests
 # create logger
 logger = getLogger(__name__)
 
@@ -31,17 +29,33 @@ class Rss:
         :return: Feeds if Feeds are well-formed
         """
         data = FeedParserDict()
-        with httpx.Client(timeout=30) as client:
-            logger.debug(url_to_parse)
-            try:
-                feed = client.get(url_to_parse)
-                data = feedparser.parse(feed.text, agent=self.USER_AGENT)
-                # if the feeds is not well-formed, return no data at all
-                if bypass_bozo is False and data.bozo == 1:
-                    data.entries = ''
-                    log = f"{url_to_parse}: is not valid. Make a try by providing 'True' to 'Bypass Bozo' parameter"
-                    logger.info(log)
-            except (httpcore.ConnectTimeout, httpcore.ReadTimeout, httpcore.ReadError,
-                    httpx.ConnectTimeout, httpx.ConnectError, httpx.ReadTimeout) as e:
-                logger.error(e)
+        # httpx does not handle url with 302 returned code o_O
+        # with httpx.Client(timeout=30) as client:
+        #    logger.debug(url_to_parse)
+        #    try:
+        #        feed = requests.get(url_to_parse)
+        #        feed = client.get(url_to_parse)
+        #        print(feed)
+        #        print(feed.text, feed.content   )
+        #        data = feedparser.parse(feed.text, agent=self.USER_AGENT)
+        #        print(data)
+        #        # if the feeds is not well-formed, return no data at all
+        #        if bypass_bozo is False and data.bozo == 1:
+        #            data.entries = ''
+        #            log = f"{url_to_parse}: is not valid. Make a try by providing 'True' to 'Bypass Bozo' parameter"
+        #            logger.info(log)
+        #    except (httpcore.ConnectTimeout, httpcore.ReadTimeout, httpcore.ReadError,
+        #            httpx.ConnectTimeout, httpx.ConnectError, httpx.ReadTimeout) as e:
+        #        logger.error(e)
+        logger.debug(url_to_parse)
+        try:
+            feed = requests.get(url_to_parse)
+            data = feedparser.parse(feed.text, agent=self.USER_AGENT)
+            if bypass_bozo is False and data.bozo == 1:
+                data.entries = ''
+                log = f"{url_to_parse}: is not valid. Make a try by providing 'True' to 'Bypass Bozo' parameter"
+                logger.info(log)
+        except (requests.ConnectTimeout, requests.ReadTimeout, ) as e:
+            logger.error(e)
+
         return data

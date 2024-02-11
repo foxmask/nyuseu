@@ -4,17 +4,17 @@ Nyuseu :: News :: 뉴스
 """
 
 # std lib
+import datetime
+import logging
+import time
 import arrow
 from bs4 import BeautifulSoup
-import datetime
 from django.conf import settings
 from django.core.exceptions import ValidationError
 import feedparser
-from nyuseu.feedsparser_data import Rss
-import logging
-from nyuseu.models import Feeds, Articles
 from rich.console import Console
-import time
+from nyuseu.feedsparser_data import Rss
+from nyuseu.models import Feeds, Articles
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -70,7 +70,7 @@ def _get_content(data, which_content):
 
 def revamped_images(content):
     """
-
+        for each images put it in the card-img-top CSS class
     """
     soup = BeautifulSoup(content, 'html.parser')
     images = soup.find_all('img')
@@ -110,7 +110,7 @@ def set_content(entry):
 
 def from_feed(entry):
     """
-
+        get the content return the founded image if exists
     """
     new_image = "<img src=\"{src}\" title=\"{title}\" class=\"card-img-top\" />"
     for link in entry.get('links'):
@@ -126,7 +126,7 @@ def from_feed(entry):
 
 def from_content(content):
     """
-
+        get the content return the founded image
     """
     soup = BeautifulSoup(content, 'html.parser')
     new_image = ""

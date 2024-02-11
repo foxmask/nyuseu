@@ -100,6 +100,9 @@ def unread_later(request, article_id):
 
 
 def article_reload(request, article_id):
+    """
+       reload an article
+    """
     article = Articles.objects.get(id=article_id)
     r = Article(article.source_url, keep_article_html=True)
     r.download()
@@ -182,6 +185,9 @@ class ArticlesTinyListView(FoldersMixin, ListView):
 
 
 class ArticlesMixin:
+    """
+    Mixin for commons properties and behaviors/methods
+    """
 
     paginate_by = 9
 

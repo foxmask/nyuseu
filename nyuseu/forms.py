@@ -4,7 +4,9 @@ from nyuseu.models import MyBoard, MyBoardFeeds
 
 
 class MyBoardForms(ModelForm):
-
+    """
+        Form to build his/her own board
+    """
     class Meta:
         model = MyBoard
         fields = ('name',)
@@ -15,7 +17,9 @@ class MyBoardForms(ModelForm):
 
 
 class MyBoardFeedsForms(ModelForm):
-
+    """
+        Form to add the feed on our board of our choice
+    """
     class Meta:
         model = MyBoardFeeds
         fields = ('feeds',)

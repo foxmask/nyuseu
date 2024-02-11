@@ -11,7 +11,6 @@ News reader in [Python](https://www.python.org) and [Django](https://www.djangop
 
 * Python > 3.10
 * Django < 4
-* pandoc
 
 ### Installation
 

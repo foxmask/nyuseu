@@ -18,6 +18,9 @@ __all__ = ['Rss']
 
 
 class Rss:
+    """
+    Class the parse the RSS Data
+    """
 
     USER_AGENT = 'FeedParserData/0.1.3 +https://github.com/foxmask/nyuseu/'
 

@@ -3,14 +3,14 @@
 News reader in [Python](https://www.python.org) and [Django](https://www.djangoproject.com/)
 
 
-![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/screenshot.png)
+![Main page](https://github.com/foxmask/nyuseu/blob/master/nyuseu/doc/screenshot.png)
 
 ## :package: Installation
 
-### Requirements 
+### Requirements
 
-* Python from 3.8 to 3.10
-  * Django from 4.0 to 4.1
+* Python > 3.10
+* Django < 4
 * pandoc
 
 ### Installation
@@ -85,7 +85,7 @@ python manage.py runserver localhost:8001
 
 then, access the project with your browser http://127.0.0.1:8001/
 
-### Manage your data 
+### Manage your data
 
 go to http://127.0.0.1:8001/admin and enter the login/pass of the created `superuser`
 
@@ -100,7 +100,7 @@ python opml_load.py /path/to/the/file.opml
 eg
 
 ```bash
-python manage.py opml_load ~/Download/feedly-e2343e92-9e71-4345-b045-cef7e1736cd2-2020-05-14.opml 
+python manage.py opml_load ~/Download/feedly-e2343e92-9e71-4345-b045-cef7e1736cd2-2020-05-14.opml
 Nyuseu Server - 뉴스 - Feeds Reader Server - Starlette powered
 Humor Le blog d'un odieux connard
 Dev Vue.js News
@@ -137,22 +137,22 @@ eg
 Nyuseu :: 뉴스 :: News - Feeds Exported in file foobar.opml
 ```
 
-### get the update of your news 
+### get the update of your news
 
 in your crontab add this for example
 
 ```bash
 */59 * * * * cd ~/Projects/nyuseu/ && . bin/activate && cd nyuseu && ./manage.py nyuseu_update
-``` 
+```
 
 (Image credits to [Emojipedia](https://emojipedia.org/))
 
 ## Board creation
 
-![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/create_1.png)
+![Main page](https://github.com/foxmask/nyuseu/tree/master/nyuseu/doc/create_1.png)
 
-![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/create_2.png)
+![Main page](https://github.com/foxmask/nyuseu/tree/master/nyuseu/doc/create_2.png)
 
 ## accessing to boards
 
-![Main page](https://git.afpy.org/foxmask/nyuseu/raw/master/nyuseu/doc/my_boards.png)
+![Main page](https://github.com/foxmask/nyuseu/tree/master/nyuseu/doc/my_boards.png)

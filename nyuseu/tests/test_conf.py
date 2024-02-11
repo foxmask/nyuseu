@@ -2,9 +2,9 @@
 """
 Nyuseu :: News :: 뉴스
 """
+import os
 from django.conf import settings
 from django.test import TestCase
-import os
 
 
 class NyuseuSettingsTestCase(TestCase):

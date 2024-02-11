@@ -19,7 +19,7 @@ __all__ = ['Rss']
 
 class Rss:
 
-    USER_AGENT = 'FeedParserData/0.1.3 +https://git.afpy.org/foxmask/nyuseu'
+    USER_AGENT = 'FeedParserData/0.1.3 +https://github.com/foxmask/nyuseu/'
 
     def get_data(self, url_to_parse, bypass_bozo=False, **kwargs) -> typing.Any:
         """
@@ -49,7 +49,7 @@ class Rss:
         #        logger.error(e)
         logger.debug(url_to_parse)
         try:
-            feed = requests.get(url_to_parse)
+            feed = requests.get(url_to_parse, timeout=90)
             data = feedparser.parse(feed.text, agent=self.USER_AGENT)
             if bypass_bozo is False and data.bozo == 1:
                 data.entries = ''

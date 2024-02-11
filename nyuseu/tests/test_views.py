@@ -11,6 +11,9 @@ from nyuseu.views import marked_as_read, marked_as_unread, read_later, unread_la
 
 
 class FoldersListViewTestCase(TestCase):
+    """
+    List of Feeds for a given Folder
+    """
 
     def create_folder(self):
         folder = Folders.objects.create(title="FolderX")
@@ -45,6 +48,9 @@ class FoldersListViewTestCase(TestCase):
 
 
 class ArticlesListViewTestCase(TestCase):
+    """
+    List of Articles from a given Folder
+    """
 
     def create_stuff(self):
         folder = Folders.objects.create(title="FolderD")
@@ -128,6 +134,9 @@ class ArticlesListViewTestCase(TestCase):
 
 
 class ArticlesDetailViewTestCase(TestCase):
+    """
+    Article Detail View
+    """
 
     def create_articles(self):
         folder = Folders.objects.create(title="FolderC")
@@ -162,6 +171,9 @@ class ArticlesDetailViewTestCase(TestCase):
 
 
 class ViewFunction(TestCase):
+    """
+    Class to test functions markas_* read/unread_*
+    """
 
     def create_articles(self):
         folder = Folders.objects.create(title="FolderC")

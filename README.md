@@ -149,10 +149,10 @@ in your crontab add this for example
 
 ## Board creation
 
-![Main page](https://github.com/foxmask/nyuseu/tree/master/nyuseu/doc/create_1.png)
+![Board creation 1](https://github.com/foxmask/nyuseu/blob/master/nyuseu/doc/create_1.png)
 
-![Main page](https://github.com/foxmask/nyuseu/tree/master/nyuseu/doc/create_2.png)
+![Board creation 1](https://github.com/foxmask/nyuseu/blob/master/nyuseu/doc/create_2.png)
 
 ## accessing to boards
 
-![Main page](https://github.com/foxmask/nyuseu/tree/master/nyuseu/doc/my_boards.png)
+![My boards](https://github.com/foxmask/nyuseu/blob/master/nyuseu/doc/my_boards.png)
